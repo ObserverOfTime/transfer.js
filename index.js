@@ -18,9 +18,9 @@ const domain = 'https://transfer.sh';
  * @class
  * @param {string} fileInput - File path
  * @param {Object} [options={}] - Transfer options
- * @param {Object} httpOptions - HTTP options
+ * @param {Object} [httpOptions={}] - HTTP options
  */
-function Transfer(fileInput, options={}, httpOptions) {
+function Transfer(fileInput, options={}, httpOptions={}) {
   if (!fileInput) throw Error('File input required');
   const algorithm = 'aes-256-cbc';
   this.fileInput = fileInput;

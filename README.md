@@ -1,6 +1,8 @@
 # transfer-sh
 
-[![NPM Version](https://img.shields.io/npm/v/transfer.js.svg)](https://www.npmjs.com/package/transfer.js) [![Dependency Status](https://david-dm.org/ObserverOfTime/transfer.js.png)](https://david-dm.org/ObserverOfTime/transfer.js)
+[![NPM Version](https://img.shields.io/npm/v/transfer.js.svg)](https://www.npmjs.com/package/transfer.js)
+[![Dependency Status](https://david-dm.org/ObserverOfTime/transfer.js.png)](https://david-dm.org/ObserverOfTime/transfer.js)
+[![Build Status](https://img.shields.io/travis/ObserverOfTime/transfer.js.svg)](https://travis-ci.org/ObserverOfTime/transfer.js)
 
 Node.js CLI tool for easy file sharing with [Transfer.sh](https://transfer.sh)
 

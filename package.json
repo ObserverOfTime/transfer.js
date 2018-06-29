@@ -9,7 +9,8 @@
   },
   "scripts": {
     "gen-docs": "./node_modules/.bin/doxdox {.,bin}/*.js -l Bootstrap -o docs/index.html",
-    "lint": "./node_modules/.bin/eslint {.,bin}/*.js"
+    "lint": "./node_modules/.bin/eslint {.,bin}/*.js",
+    "test": "echo 'No tests available' && exit 0"
   },
   "repository": "git+https://github.com/ObserverOfTime/transfer.js.git",
   "keywords": [
