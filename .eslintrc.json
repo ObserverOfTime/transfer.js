@@ -4,10 +4,8 @@
       "node": true
     },
     "parserOptions": {
-        "ecmaFeatures": {
-          "experimentalObjectRestSpread": true
-        },
-        "sourceType": "module"
+      "ecmaVersion": 6,
+      "sourceType": "module"
     },
     "rules": {
         "accessor-pairs": ["warn", {"setWithoutGet": true}],

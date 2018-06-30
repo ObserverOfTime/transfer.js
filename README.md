@@ -1,8 +1,8 @@
-# transfer-sh
+# transfer.js
 
 [![NPM Version](https://img.shields.io/npm/v/transfer.js.svg)](https://www.npmjs.com/package/transfer.js)
-[![Dependency Status](https://david-dm.org/ObserverOfTime/transfer.js.png)](https://david-dm.org/ObserverOfTime/transfer.js)
-[![Build Status](https://img.shields.io/travis/ObserverOfTime/transfer.js.svg)](https://travis-ci.org/ObserverOfTime/transfer.js)
+[![Dependencies](https://david-dm.org/ObserverOfTime/transfer.js.png)](https://david-dm.org/ObserverOfTime/transfer.js)
+[![Build Status](https://travis-ci.org/ObserverOfTime/transfer.js.svg?branch=)](https://travis-ci.org/ObserverOfTime/transfer.js)
 
 Node.js CLI tool for easy file sharing with [Transfer.sh](https://transfer.sh)
 
@@ -58,22 +58,18 @@ new Transfer('./Hello.enc', {password: 's3cr3t'})
 
 |   Option   |                         Description                          |
 | :--------: | :----------------------------------------------------------: |
-| `filename` | If provided, the URL will use the provided name.<br />Otherwise, it will use the original name. |
-| `password` | If provided, the file will be encrypted with `aes-256-cbc`,<br />no-salt and base64 encoded before the upload. |
+| `filename` | If provided, the URL will use the provided name.<br>Otherwise, it will use the original name. |
+| `password` | If provided, the file will be encrypted with `aes-256-cbc`<br>and encoded as base64 before the upload. |
 
 ## TODO
 
-- Write tests
 - Support downloading
-
-## Author
-
-**ObserverOfTime**
 
 ## Credits
 
-**Based on [transfer-sh](https://github.com/roccomuso/transfer-sh) by roccomuso**
+Based on [transfer-sh](https://github.com/roccomuso/transfer-sh) by roccomuso
 
 ## LICENSE
 
-**ISC**
+ISC
+

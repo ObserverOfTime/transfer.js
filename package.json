@@ -1,16 +1,21 @@
 {
   "name": "transfer.js",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Fork of transfer-sh, a CLI tool for easy file sharing with Transfer.sh",
   "main": "index.js",
   "preferGlobal": true,
   "bin": {
     "transfer-js": "./bin/transfer.js"
   },
+  "files": [
+    "index.js",
+    "bin/",
+    "lib/"
+  ],
   "scripts": {
-    "gen-docs": "./node_modules/.bin/doxdox {.,bin}/*.js -l Bootstrap -o docs/index.html",
-    "lint": "./node_modules/.bin/eslint {.,bin}/*.js",
-    "test": "echo 'No tests available' && exit 0"
+    "gen-docs": "node ./node_modules/.bin/doxdox {.,bin,lib}/*.js -l Bootstrap -o docs/index.html",
+    "lint": " node ./node_modules/.bin/eslint {.,bin,lib,tests}/*.js",
+    "test": "node ./node_modules/.bin/mocha --exit tests/test.js"
   },
   "repository": "git+https://github.com/ObserverOfTime/transfer.js.git",
   "keywords": [
@@ -22,12 +27,12 @@
     "file",
     "sharing"
   ],
-  "author": "ObserverOfTime",
+  "author": "ObserverOfTime <chronobserver@disroot.org>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/ObserverOfTime/transfer.js/issues"
   },
-  "homepage": "https://observeroftime.github.io/transfer.js/docs",
+  "homepage": "https://observeroftime.github.io/transfer.js",
   "dependencies": {
     "base64-stream": "^0.1.3",
     "block-stream2": "^1.1.0",
@@ -40,7 +45,10 @@
     "through2": "^2.0.3"
   },
   "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
     "doxdox": "^2.0.3",
-    "eslint": "^5.0.1"
+    "eslint": "^5.0.1",
+    "mocha": "^5.2.0"
   }
 }

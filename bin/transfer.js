@@ -1,6 +1,15 @@
 #!/usr/bin/env node
 
 const argv = require('minimist')(process.argv.slice(2), {
+  boolean: 'copy-url',
+  string: [
+    'max-days',
+    'max-downloads',
+    'output',
+    'decrypt',
+    'password',
+    'file-name'
+  ],
   alias: {
     'help': 'h',
     'version': 'v',
@@ -17,7 +26,7 @@ const clipboardy = require('clipboardy');
 const Transfer = require('../index');
 const pkg = require('../package');
 const help = `\
-  CLI tool for easy file sharing using https://transfer.sh
+  CLI tool for easy file sharing with https://transfer.sh
 
   \x1b[4mUsage\x1b[0m
     $ transfer <file> [OPTIONS]
@@ -47,7 +56,7 @@ const help = `\
  */
 function catchError(err) {
   if (err) {
-    console.error(err);
+    console.error(err.stack);
     process.exit(1);
   }
 }
@@ -67,8 +76,22 @@ function gotUrl(url) {
   }
 }
 
+/**
+ * Checks whether arguments were passed
+ *
+ * @returns {boolean} - True if no arguments were passed
+ */
+function noArgs() {
+  return (argv._.length === 0 &&
+    Object.keys(argv).length === 1);
+}
+
+if(noArgs()) {
+  console.error(help);
+  process.exit(2);
+}
+
 if(argv.h) {
-  console.dir(argv);
   console.log(help);
   process.exit(0);
 }
@@ -90,18 +113,19 @@ const httpOpts = {
 if(argv.m) httpOpts.headers['Max-Days'] = argv.m;
 if(argv.M) httpOpts.headers['Max-Downloads'] = argv.M;
 
-if (argv.d) { // Decrypt
-  if (!argv.p) catchError('No password provided');
+if(argv.d) { // Decrypt
+  if(!argv.p)
+    catchError(new Error('No password provided'));
   const ext = require('path').extname(argv.d);
-  const output = (!ext) ? `${argv.d}-decrypted` :
+  let output = (!ext) ? `${argv.d}-decrypted` :
     `${argv.d.replace(ext, '')}-decrypted${ext}`;
+  if(argv.o) output = argv.o;
   new Transfer(argv.d, opts, httpOpts)
     .decrypt(output)
-    .then(function() {
-      console.log('Successfully decrypted in', output);
-    })
+    .then(() => console.log('Successfully decrypted in', output))
     .catch(catchError);
 } else { // Encrypt (if requested) and upload each file
+  if(argv._.length === 0) argv._.push('');
   for(const i in argv._) {
     new Transfer(argv._[i], opts, httpOpts)
       .upload()

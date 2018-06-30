@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="initial-scale=1">
-<title>transfer.js 0.0.2 &#8212; Fork of transfer-sh, a CLI tool for easy file sharing with Transfer.sh</title>
+<title>transfer.js 0.1.0 &#8212; Fork of transfer-sh, a CLI tool for easy file sharing with Transfer.sh</title>
 <meta name="description" content="Fork of transfer-sh, a CLI tool for easy file sharing with Transfer.sh">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
@@ -162,8 +162,8 @@ input[type="search"]::-webkit-search-cancel-button {
     <div class="container">
 
         <h1>
-                <a href="https://observeroftime.github.io/transfer.js/docs">transfer.js</a>
-            <small>0.0.2</small>
+                <a href="https://observeroftime.github.io/transfer.js">transfer.js</a>
+            <small>0.1.0</small>
         </h1>
 
         <p>Fork of transfer-sh, a CLI tool for easy file sharing with Transfer.sh</p>
@@ -230,6 +230,26 @@ input[type="search"]::-webkit-search-cancel-button {
                         </li>
 
 
+                        <li class="method-link scope-public">
+                            <a href="#bin-transfer.js-noargs" title="noArgs">noArgs</a>
+                        </li>
+
+
+                        </ul>
+
+                    </li>
+
+
+                    <li>
+                        <a href="#lib/TransferError.js" class="file"><b>lib/TransferError.js</b></a>
+                        <ul>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#lib-transfererror.js-transfererror" title="TransferError">TransferError</a>
+                        </li>
+
+
                         </ul>
 
                     </li>
@@ -254,7 +274,7 @@ input[type="search"]::-webkit-search-cancel-button {
 
                         <div class="description lead">
 
-                            <p>Creates a new transfer</p>
+                            <p>Class representing a Transfer</p>
 
 
                         </div>
@@ -362,11 +382,11 @@ input[type="search"]::-webkit-search-cancel-button {
 
 
                                     <p>
-                                            <code>Promise.&lt;string|Error&gt;</code>
+                                            <code>Promise.&lt;string|TransferError&gt;</code>
                                     </p>
 
                                     <ul>
-<li>The link as a string if resolved, an Error if rejected</li>
+<li>The link if resolved, a TransferError if rejected</li>
 </ul>
 
 
@@ -386,7 +406,7 @@ input[type="search"]::-webkit-search-cancel-button {
 
                         <div class="description lead">
 
-                            <p>Encrypt file</p>
+                            <p>Encrypt file using aes-256-cbc and base64</p>
 
 
                         </div>
@@ -468,11 +488,12 @@ input[type="search"]::-webkit-search-cancel-button {
 
 
                                     <p>
-                                            <code>Promise.&lt;WritableStream|Error&gt;</code>
+                                            <code>Promise.&lt;WritableStream|TransferError&gt;</code>
                                     </p>
 
                                     <ul>
-<li>A WritableStream of the decrypted file if resolved, an Error if rejected</li>
+<li>A WritableStream of the decrypted file if resolved,
+a TransferError if rejected</li>
 </ul>
 
 
@@ -596,6 +617,129 @@ input[type="search"]::-webkit-search-cancel-button {
 </ul>
 </td>
                                         <td>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                        </section>
+
+
+
+
+                        <section class="returns">
+
+                            <h3>Returns</h3>
+
+
+                            <p><code>Void</code></p>
+
+
+                        </section>
+
+                    </div>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="bin-transfer.js-noargs">
+                            <a href="#bin-transfer.js-noargs" class="permalink">#</a>
+                            <span class="method-name" title="noArgs()">noArgs()</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Checks whether arguments were passed</p>
+
+
+                        </div>
+
+
+
+
+                        <section class="returns">
+
+                            <h3>Returns</h3>
+
+
+
+                                    <p>
+                                            <code>boolean</code>
+                                    </p>
+
+                                    <ul>
+<li>True if no arguments were passed</li>
+</ul>
+
+
+
+
+                        </section>
+
+                    </div>
+
+
+
+                <a id="lib/TransferError.js"></a>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="lib-transfererror.js-transfererror">
+                            <a href="#lib-transfererror.js-transfererror" class="permalink">#</a>
+                            <span class="method-name" title="TransferError(message[, extra])">TransferError(message[, extra])</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Class representing a Transfer Error</p>
+
+
+                        </div>
+
+
+                        <section class="parameters">
+
+                            <h3>Parameters</h3>
+
+                            <div class="table-responsive">
+                                <table class="table">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr>
+                                        <td>message</td>
+                                        <td>
+                                            <code>string</code>
+                                        </td>
+                                        <td><ul>
+<li>Error message</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>extra</td>
+                                        <td>
+                                            <code>Object</code>
+                                        </td>
+                                        <td><ul>
+<li>Extra attributes</li>
+</ul>
+</td>
+                                        <td>
+                                                <span class="tag tag-default">Optional</span>
                                         </td>
                                     </tr>
                                     </tbody>

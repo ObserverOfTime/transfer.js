@@ -1,20 +1,26 @@
 language: node_js
 node_js:
-  - '6'
+  - '7'
 cache: yarn
 branches:
   only:
-  - master
+    - '/^v\\d+\\.\\d+\\.\\d+.*$/'
 script:
-  - 'yarn test'
-  - 'yarn run lint'
+  - yarn test --silent
 notifications:
   email: false
 deploy:
   provider: npm
   skip_cleanup: true
-  email: 'chronobserver@disroot.org'
+  email: chronobserver@disroot.org
   on:
     tags: true
   api_key:
-    secure: PPPJlBZlqAonFvE1dEy9iivdrmpriDjihX/YIM86dUXKfoHe27oTm5VHwdNW54wSnyAosDm5oAQJTAZ2dwtWF4BPnJ0nc5zmbyaTsFH8D7zS36e3gnbtd7qyA09aBnBCqdlKq0CJvnTSBlYlTySZke5Aglv6SVi2ZXhvEOCKw+0CT+SlWwMvkDVEtO4XxHLNsCe/1N0scS2vwCM04wnX23w5+GHJqIGHEDSB+LtmEzCrTYll6yQt0JHj1VBeS9ibHbr5jchsXS46RSFOnnzl5y7uNtQ/cOGzlQpV+1tIdQmTC/qV0Af8OZHkmd+J9f8Ja3k5BM6K54Yt2l7wmE9ybG1QhoWRf9WnOn+tyKK9sX9xQ3/d2w5AZ6L/+9+ov9U7EjFbgYbIiNWt9VK/l94t3MnKT7S0hRnSyFehsd0TGYOXIY7jv2i6swmfhWDPtYYkA0fJRhOhrad1ujQMdS1O6WmarLqmD4HArVCU2p/lPbBYTY6KUFo6cCJB4nZ0HrQcq4Aq7WbYNvWC4j0C7S+Uekq0NAZyfbJXjqIcUFeKDUettsnpJBVpQmFhyfPzZlkVUYhPxCr0VBVxfUGT1kfWfU8R2adMTdNPp1cmxcc+fHYj3MkkqM5+MjwV1yXitM3t5jQ552e+ebO29TkNs46cuoZ0YjDddttUr8CIbQr17pA=
+    secure: MJnnHMTgYKFme+2avIAjX9+8GLolEsNFxPb3y1T2Prr2++y0s/uhRL0u0n/xAoQTbKj3Ied2w3Edte0+LuYUpofOD67goOQwSjrRLOGVGUuI2Yjhaow5dYEhqS36qOQ0dG1cfEIj9t+Y5gPilDUn45VcZCgAqp8AGIgPf+njo9SMd4U/dI6L0xrWgsDyi7XOQp0p1ibPqSQsHLHQ6T2crH0KQy/V3ieqv8pVG/f0CcVuDrASejCIOF+ErdHbzcOzQDriNSxst0E2wuuPfgIPmG8TOqDIvckgr3ucs65pxlFzl0H/cVOS5XA8fCWGsr+huAvES2CFwMjEG5+VR+fr1PDe4XkMkZD4INGejy0n+Z8NSCNYM1jiWq92MIclF1KEiUpw0I30yNwl1G6zZEqwZCMubQDZm7amJE14dLpp2ynY4Pq9q9BH710QihVxeJTezOalBMBDMZzREX0LRVpU5SvCWROiqCYPznihnbmY7A8/NyPeu7SJn1MHoC9qHX+PAJiKpC4+hL7zFWjvJnM5d1AUcIPpT0H3sa0FBlC5KQb54KqjfzOgYKxqSVwhGvmrurWG4No2Ro2h5cbRhiQZzwmlBkJHd0pI+ZVS6/nQ3ZNBC+e1UrVWyJEXxjRkP4Enbhnx39hAJSOq+JNw0TCL5fToqt+TZdO0L52XbfdWA4Y=
+after_deploy:
+  - env tag="${TRAVIS_TAG#v}" bash -c '[ "$(yarn info transfer.js version --silent)" == "$tag" ] || travis_terminate 1'
+after_success:
+  - curl -Ss https://raw.githubusercontent.com/k3rn31p4nic/travis-ci-discord-webhook/master/send.sh | bash -s -- success https://discordapp.com/api/webhooks/462385216955351051/pADeHfY599zAYjL9hZEqk0wQHqQMK6WoTlO5elDOffAXuXlfD3eUPoVuo0x8KJge50Za
+after_failure:
+  - curl -Ss https://raw.githubusercontent.com/k3rn31p4nic/travis-ci-discord-webhook/master/send.sh | bash -s -- failure https://discordapp.com/api/webhooks/462385216955351051/pADeHfY599zAYjL9hZEqk0wQHqQMK6WoTlO5elDOffAXuXlfD3eUPoVuo0x8KJge50Za
+

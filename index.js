@@ -10,10 +10,11 @@ const base64 = require('base64-stream');
 const block = require('block-stream2');
 const eos = require('end-of-stream');
 const PassThroughStream = require('stream').PassThrough;
+const TransferError = require('./lib/TransferError');
 const domain = 'https://transfer.sh';
 
 /**
- * Creates a new transfer
+ * Class representing a Transfer
  *
  * @class
  * @param {string} fileInput - File path
@@ -21,7 +22,6 @@ const domain = 'https://transfer.sh';
  * @param {Object} [httpOptions={}] - HTTP options
  */
 function Transfer(fileInput, options={}, httpOptions={}) {
-  if (!fileInput) throw Error('File input required');
   const algorithm = 'aes-256-cbc';
   this.fileInput = fileInput;
   this.options = options;
@@ -40,26 +40,32 @@ function Transfer(fileInput, options={}, httpOptions={}) {
  * Upload file
  *
  * @function
- * @returns {Promise.<string|Error>} -
- * The link as a string if resolved, an Error if rejected
+ * @returns {Promise.<string|TransferError>} -
+ * The link if resolved, a TransferError if rejected
  */
 Transfer.prototype.upload = function() {
   const self = this;
-  console.log(self.options.filename + ' | ' + path.basename(self.fileInput));
   const fileName = self.options.filename ||
     path.basename(self.fileInput);
   const fileURL = domain + '/' + fileName;
-  if (this.options.password) this._crypt();
-  return new Promise(function(resolve, reject) {
+  if(this.options.password) this._crypt();
+  return new Promise((resolve, reject) => {
+    if(!self.fileInput) reject(new TransferError('Missing file input'));
+    try {
+      if(!fs.existsSync(self.fileInput))
+        reject(new TransferError('File not found: ' + path.resolve(fileName)));
+    } catch(EACCESS) {
+      reject(new TransferError('Cannot read file: ' + path.resolve(fileName)));
+    }
     pump(self.encryptedStream || self.inputStream,
       got.stream.put(fileURL, self.httpOptions),
-      concat(function(link) { resolve(link.toString()); }),
+      concat((link) => { resolve(link.toString()); }),
       reject);
   });
 };
 
 /**
- * Encrypt file
+ * Encrypt file using aes-256-cbc and base64
  *
  * @function
  * @protected
@@ -79,21 +85,23 @@ Transfer.prototype._crypt = function() {
  *
  * @function
  * @param {string} destination - Destination path
- * @returns {Promise.<WritableStream|Error>} -
- * A WritableStream of the decrypted file if resolved, an Error if rejected
+ * @returns {Promise.<WritableStream|TransferError>} -
+ * A WritableStream of the decrypted file if resolved,
+ * a TransferError if rejected
  */
 Transfer.prototype.decrypt = function(destination) {
-  if (!destination) throw Error('Destination missing.');
   const self = this;
-  return new Promise(function(resolve, reject) {
+  return new Promise((resolve, reject) => {
+    if(!destination)
+      reject(new TransferError('Missing decrypted file destination'));
     const wStream = fs.createWriteStream(destination);
-    eos(wStream, function (err) {
-      if (err)
-        return reject(new Error('Stream had an error or closed early.'));
+    eos(wStream, (err) => {
+      if(err) return reject(err);
       resolve(this);
     });
     // Start decryption
-    self.inputStream.pipe(base64.decode())
+    self.inputStream
+      .pipe(base64.decode())
       .pipe(self.sDecrypt)
       .pipe(wStream);
   });
