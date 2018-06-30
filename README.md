@@ -1,10 +1,10 @@
-# transfer.js
+# transfer.js [![Version](https://img.shields.io/npm/v/transfer.js.svg)](https://www.npmjs.com/package/transfer.js)
 
-[![NPM Version](https://img.shields.io/npm/v/transfer.js.svg)](https://www.npmjs.com/package/transfer.js)
-[![Dependencies](https://david-dm.org/ObserverOfTime/transfer.js.png)](https://david-dm.org/ObserverOfTime/transfer.js)
+[![Dependencies](https://david-dm.org/ObserverOfTime/transfer.js.svg)](https://david-dm.org/ObserverOfTime/transfer.js)
 [![Build Status](https://travis-ci.org/ObserverOfTime/transfer.js.svg?branch=)](https://travis-ci.org/ObserverOfTime/transfer.js)
+[![License](https://img.shields.io/badge/license-ISC-blue.svg)](./LICENSE)
 
-Node.js CLI tool for easy file sharing with [Transfer.sh](https://transfer.sh)
+Node.js CLI tool for easy file sharing with [transfer.sh](https://transfer.sh)
 
 ## Install
 
@@ -68,8 +68,4 @@ new Transfer('./Hello.enc', {password: 's3cr3t'})
 ## Credits
 
 Based on [transfer-sh](https://github.com/roccomuso/transfer-sh) by roccomuso
-
-## LICENSE
-
-ISC
 

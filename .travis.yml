@@ -1,10 +1,7 @@
 language: node_js
 node_js:
-  - '7'
+  - '8'
 cache: yarn
-branches:
-  only:
-    - '/^v\\d+\\.\\d+\\.\\d+.*$/'
 script:
   - yarn test --silent
 notifications:
@@ -17,10 +14,13 @@ deploy:
     tags: true
   api_key:
     secure: MJnnHMTgYKFme+2avIAjX9+8GLolEsNFxPb3y1T2Prr2++y0s/uhRL0u0n/xAoQTbKj3Ied2w3Edte0+LuYUpofOD67goOQwSjrRLOGVGUuI2Yjhaow5dYEhqS36qOQ0dG1cfEIj9t+Y5gPilDUn45VcZCgAqp8AGIgPf+njo9SMd4U/dI6L0xrWgsDyi7XOQp0p1ibPqSQsHLHQ6T2crH0KQy/V3ieqv8pVG/f0CcVuDrASejCIOF+ErdHbzcOzQDriNSxst0E2wuuPfgIPmG8TOqDIvckgr3ucs65pxlFzl0H/cVOS5XA8fCWGsr+huAvES2CFwMjEG5+VR+fr1PDe4XkMkZD4INGejy0n+Z8NSCNYM1jiWq92MIclF1KEiUpw0I30yNwl1G6zZEqwZCMubQDZm7amJE14dLpp2ynY4Pq9q9BH710QihVxeJTezOalBMBDMZzREX0LRVpU5SvCWROiqCYPznihnbmY7A8/NyPeu7SJn1MHoC9qHX+PAJiKpC4+hL7zFWjvJnM5d1AUcIPpT0H3sa0FBlC5KQb54KqjfzOgYKxqSVwhGvmrurWG4No2Ro2h5cbRhiQZzwmlBkJHd0pI+ZVS6/nQ3ZNBC+e1UrVWyJEXxjRkP4Enbhnx39hAJSOq+JNw0TCL5fToqt+TZdO0L52XbfdWA4Y=
+before_script:
+  - rm -f /home/travis/build/ObserverOfTime/transfer.js/npm-debug.log
 after_deploy:
-  - env tag="${TRAVIS_TAG#v}" bash -c '[ "$(yarn info transfer.js version --silent)" == "$tag" ] || travis_terminate 1'
+  - env _tag="${TRAVIS_TAG#v}" bash -c '[ "$(yarn info transfer.js version --silent)" == "$_tag" ] || travis_terminate 1'
 after_success:
   - curl -Ss https://raw.githubusercontent.com/k3rn31p4nic/travis-ci-discord-webhook/master/send.sh | bash -s -- success https://discordapp.com/api/webhooks/462385216955351051/pADeHfY599zAYjL9hZEqk0wQHqQMK6WoTlO5elDOffAXuXlfD3eUPoVuo0x8KJge50Za
 after_failure:
+  - cat /home/travis/build/ObserverOfTime/transfer.js/npm-debug.log
   - curl -Ss https://raw.githubusercontent.com/k3rn31p4nic/travis-ci-discord-webhook/master/send.sh | bash -s -- failure https://discordapp.com/api/webhooks/462385216955351051/pADeHfY599zAYjL9hZEqk0wQHqQMK6WoTlO5elDOffAXuXlfD3eUPoVuo0x8KJge50Za
 

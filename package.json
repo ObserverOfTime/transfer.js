@@ -1,7 +1,7 @@
 {
   "name": "transfer.js",
-  "version": "0.1.0",
-  "description": "Fork of transfer-sh, a CLI tool for easy file sharing with Transfer.sh",
+  "version": "0.1.1",
+  "description": "Fork of transfer-sh, a CLI tool for easy file sharing with https://transfer.sh",
   "main": "index.js",
   "preferGlobal": true,
   "bin": {
@@ -14,7 +14,7 @@
   ],
   "scripts": {
     "gen-docs": "node ./node_modules/.bin/doxdox {.,bin,lib}/*.js -l Bootstrap -o docs/index.html",
-    "lint": " node ./node_modules/.bin/eslint {.,bin,lib,tests}/*.js",
+    "lint": "node ./node_modules/.bin/eslint {.,bin,lib,tests}/*.js",
     "test": "node ./node_modules/.bin/mocha --exit tests/test.js"
   },
   "repository": "git+https://github.com/ObserverOfTime/transfer.js.git",
