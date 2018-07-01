@@ -19,7 +19,8 @@ describe('Testing Transfer', () => {
     headers: {
       'User-Agent': userAgent,
       'Max-Days': 1
-    }
+    },
+    throwHttpErrors: true
   };
 
   it('succesful upload', () => {
@@ -28,11 +29,22 @@ describe('Testing Transfer', () => {
       .match(new RegExp(regex + path.basename(file)));
   });
 
-  it('successful upload: specified filename', () => {
+  it('successful upload: custom name', () => {
     const opts = {filename: 'test.md'};
     const transfer = new Transfer(file, opts, httpOpts);
     return expect(transfer.upload()).to.eventually
       .match(new RegExp(regex + opts.filename));
+  });
+
+  it('succesful upload: progress', (done) => {
+    let progressTotal, progressCount = 0;
+    const transfer = new Transfer(file, {}, httpOpts);
+    return transfer.upload().progress((prog) => {
+      progressCount = prog.current;
+      progressTotal = prog.total;
+    }).then(() => {
+      progressCount.should.equal(progressTotal);
+    }).should.notify(done);
   });
 
   it('successful upload: encrypted', () => {

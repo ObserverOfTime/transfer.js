@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="initial-scale=1">
-<title>transfer.js 0.1.1 &#8212; Fork of transfer-sh, a CLI tool for easy file sharing with https://transfer.sh</title>
+<title>transfer.js 0.2.0 &#8212; Fork of transfer-sh, a CLI tool for easy file sharing with https://transfer.sh</title>
 <meta name="description" content="Fork of transfer-sh, a CLI tool for easy file sharing with https://transfer.sh">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
@@ -163,7 +163,7 @@ input[type="search"]::-webkit-search-cancel-button {
 
         <h1>
                 <a href="https://observeroftime.github.io/transfer.js">transfer.js</a>
-            <small>0.1.1</small>
+            <small>0.2.0</small>
         </h1>
 
         <p>Fork of transfer-sh, a CLI tool for easy file sharing with https://transfer.sh</p>
@@ -190,6 +190,11 @@ input[type="search"]::-webkit-search-cancel-button {
                         <ul>
 
 
+                        <li class="method-link scope-private">
+                            <a href="#index.js-__catcherror" title="__catchError">__catchError</a>
+                        </li>
+
+
                         <li class="method-link scope-public">
                             <a href="#index.js-transfer" title="Transfer">Transfer</a>
                         </li>
@@ -201,7 +206,7 @@ input[type="search"]::-webkit-search-cancel-button {
 
 
                         <li class="method-link scope-public">
-                            <a href="#index.js-transfer.prototype._crypt" title="Transfer._crypt">Transfer._crypt</a>
+                            <a href="#index.js-transfer.prototype._encrypt" title="Transfer._encrypt">Transfer._encrypt</a>
                         </li>
 
 
@@ -227,6 +232,11 @@ input[type="search"]::-webkit-search-cancel-button {
 
                         <li class="method-link scope-public">
                             <a href="#bin-transfer.js-goturl" title="gotUrl">gotUrl</a>
+                        </li>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#bin-transfer.js-progressbar" title="progressBar">progressBar</a>
                         </li>
 
 
@@ -263,6 +273,98 @@ input[type="search"]::-webkit-search-cancel-button {
 
 
                 <a id="index.js"></a>
+
+
+                    <div class="method scope-private">
+
+                        <h2 id="index.js-__catcherror">
+                            <a href="#index.js-__catcherror" class="permalink">#</a>
+                            <span class="method-name" title="__catchError(error, file, reject)">__catchError(error, file, reject)</span>
+                            <small class="scope-private">private function</small>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Error handler</p>
+
+
+                        </div>
+
+
+                        <section class="parameters">
+
+                            <h3>Parameters</h3>
+
+                            <div class="table-responsive">
+                                <table class="table">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr>
+                                        <td>error</td>
+                                        <td>
+                                            <code>Error</code>
+                                        </td>
+                                        <td><ul>
+<li>The caught error</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>file</td>
+                                        <td>
+                                            <code>string</code>
+                                        </td>
+                                        <td><ul>
+<li>The input file</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>reject</td>
+                                        <td>
+                                            <code>function</code>
+                                        </td>
+                                        <td><ul>
+<li>Promise rejection</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                        </section>
+
+
+
+
+                        <section class="returns">
+
+                            <h3>Returns</h3>
+
+
+                            <p><code>Void</code></p>
+
+
+                        </section>
+
+                    </div>
 
 
                     <div class="method scope-public">
@@ -382,7 +484,7 @@ input[type="search"]::-webkit-search-cancel-button {
 
 
                                     <p>
-                                            <code>Promise.&lt;string|TransferError&gt;</code>
+                                            <code>ProgressPromise.&lt;string|TransferError&gt;</code>
                                     </p>
 
                                     <ul>
@@ -399,9 +501,9 @@ input[type="search"]::-webkit-search-cancel-button {
 
                     <div class="method scope-public">
 
-                        <h2 id="index.js-transfer.prototype._crypt">
-                            <a href="#index.js-transfer.prototype._crypt" class="permalink">#</a>
-                            <span class="method-name" title="Transfer._crypt()">Transfer._crypt()</span>
+                        <h2 id="index.js-transfer.prototype._encrypt">
+                            <a href="#index.js-transfer.prototype._encrypt" class="permalink">#</a>
+                            <span class="method-name" title="Transfer._encrypt(inputStream)">Transfer._encrypt(inputStream)</span>
                         </h2>
 
                         <div class="description lead">
@@ -412,6 +514,43 @@ input[type="search"]::-webkit-search-cancel-button {
                         </div>
 
 
+                        <section class="parameters">
+
+                            <h3>Parameters</h3>
+
+                            <div class="table-responsive">
+                                <table class="table">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr>
+                                        <td>inputStream</td>
+                                        <td>
+                                            <code>ReadStream</code>
+                                        </td>
+                                        <td><ul>
+<li>The file stream to encrypt</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                        </section>
+
+
 
 
                         <section class="returns">
@@ -419,7 +558,16 @@ input[type="search"]::-webkit-search-cancel-button {
                             <h3>Returns</h3>
 
 
-                            <p><code>Void</code></p>
+
+                                    <p>
+                                            <code>ReadStream</code>
+                                    </p>
+
+                                    <ul>
+<li>The encrypted file stream</li>
+</ul>
+
+
 
 
                         </section>
@@ -546,7 +694,7 @@ a TransferError if rejected</li>
                                             <code>Error</code>
                                         </td>
                                         <td><ul>
-<li>Caught error</li>
+<li>The caught error</li>
 </ul>
 </td>
                                         <td>
@@ -613,7 +761,74 @@ a TransferError if rejected</li>
                                             <code>string</code>
                                         </td>
                                         <td><ul>
-<li>File URL on <a href="http://transfer.sh">transfer.sh</a></li>
+<li>The URL of the file</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                        </section>
+
+
+
+
+                        <section class="returns">
+
+                            <h3>Returns</h3>
+
+
+                            <p><code>Void</code></p>
+
+
+                        </section>
+
+                    </div>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="bin-transfer.js-progressbar">
+                            <a href="#bin-transfer.js-progressbar" class="permalink">#</a>
+                            <span class="method-name" title="progressBar(prog)">progressBar(prog)</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Progress handler</p>
+
+
+                        </div>
+
+
+                        <section class="parameters">
+
+                            <h3>Parameters</h3>
+
+                            <div class="table-responsive">
+                                <table class="table">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr>
+                                        <td>prog</td>
+                                        <td>
+                                            <code>Object</code>
+                                        </td>
+                                        <td><ul>
+<li>Progress details</li>
 </ul>
 </td>
                                         <td>

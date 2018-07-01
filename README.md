@@ -1,7 +1,7 @@
-# transfer.js [![Version](https://img.shields.io/npm/v/transfer.js.svg)](https://www.npmjs.com/package/transfer.js)
+# transfer.js
 
-[![Dependencies](https://david-dm.org/ObserverOfTime/transfer.js.svg)](https://david-dm.org/ObserverOfTime/transfer.js)
-[![Build Status](https://travis-ci.org/ObserverOfTime/transfer.js.svg?branch=)](https://travis-ci.org/ObserverOfTime/transfer.js)
+[![Version](https://img.shields.io/npm/v/transfer.js.svg)](https://www.npmjs.com/package/transfer.js)
+[![Build Status](https://img.shields.io/travis/ObserverOfTime/transfer.js.svg)](https://travis-ci.org/ObserverOfTime/transfer.js)
 [![License](https://img.shields.io/badge/license-ISC-blue.svg)](./LICENSE)
 
 Node.js CLI tool for easy file sharing with [transfer.sh](https://transfer.sh)
@@ -17,11 +17,13 @@ $ yarn global add transfer.js
 
 ## CLI Usage
 
+### Example
+
 ```sh
 $ transfer hello.txt --copy-url
 ```
 
-Will return a link to the resource and copy the link to your clipboard.
+Will return a link to the resource and copy it to your clipboard.
 
 ### Options
 
@@ -31,26 +33,30 @@ Will return a link to the resource and copy the link to your clipboard.
 | `-M, --max-downloads` |           Maximum number of downloads allowed.            |
 |   `-n, --file-name`   |                Name to use for the upload.                |
 |   `-c, --copy-url`    |            Copy the file URL to the clipboard.            |
+|  `-N, --no-progress`  |               Don't show the progress bar.                |
 |   `-p, --password`    |            Password used to encrypt the file.             |
 |    `-d, --decrypt`    |         Decrypt the file (requires `--password`).         |
 |    `-o, --output`     |                Decrypted file output path.                |
 
 ## Module usage
 
+### Example
+
 ```javascript
 const Transfer = require('transfer.js');
 
 // Encrypt and upload
 new Transfer('./Hello.md', {password: 's3cr3t', filename: 'Hello.enc'})
-  .upload()
-  .then(function(link) { console.log(link) }) // it returns the link as a string
-  .catch(function(err) { console.error(err) });
+  .upload().progress(function(prog) {
+    console.log(prog.current / prog.total * 100).toFixed(1) + '%');
+  }).then(function(link) { console.log(link); })
+  .catch(function(err) { console.error(err); });
 
 // Decrypt
 new Transfer('./Hello.enc', {password: 's3cr3t'})
   .decrypt('Output.md')
-  .then(function(wStream) { console.log('Decrypted!') }) // it returns a writableStream
-  .catch(function(err) { console.error(err) });
+  .then(function(wStream) { console.log('Decrypted!'); })
+  .catch(function(err) { console.error(err); });
 
 ```
 
@@ -61,11 +67,34 @@ new Transfer('./Hello.enc', {password: 's3cr3t'})
 | `filename` | If provided, the URL will use the provided name.<br>Otherwise, it will use the original name. |
 | `password` | If provided, the file will be encrypted with `aes-256-cbc`<br>and encoded as base64 before the upload. |
 
+## Dependencies [![Dependencies](https://img.shields.io/david/ObserverOfTime/transfer.js.svg)](https://david-dm.org/ObserverOfTime/transfer.js)
+
+- [base64-stream](https://ghub.io/base64-stream): Contains new Node.js v0.10 style stream classes for encoding / decoding Base64 data
+- [block-stream2](https://ghub.io/block-stream2): transform input into equally-sized blocks of output
+- [cli-progress](https://ghub.io/cli-progress): Easy to use Progress-Bar for Command-Line/Terminal Applications
+- [clipboardy](https://ghub.io/clipboardy): Access the system clipboard (copy/paste)
+- [concat-stream](https://ghub.io/concat-stream): writable stream that concatenates strings or binary data and calls a callback with the result
+- [end-of-stream](https://ghub.io/end-of-stream): Call a callback when a readable/writable/duplex stream has completed or failed.
+- [got](https://ghub.io/got): Simplified HTTP requests
+- [minimist](https://ghub.io/minimist): parse argument options
+- [progress-promise](https://ghub.io/progress-promise): Promise subclass with mechanism to report progress before resolving
+- [pump](https://ghub.io/pump): pipe streams together and close all of them if one of them closes
+- [through2](https://ghub.io/through2): A tiny wrapper around Node streams2 Transform to avoid explicit subclassing noise
+
+
+## Dev Dependencies [![Dev Dependencies](https://img.shields.io/david/dev/ObserverOfTime/transfer.js.svg)](https://david-dm.org/ObserverOfTime/transfer.js?type=dev)
+
+- [chai](https://ghub.io/chai): BDD/TDD assertion library for node.js and the browser. Test framework agnostic.
+- [chai-as-promised](https://ghub.io/chai-as-promised): Extends Chai with assertions about promises.
+- [doxdox](https://ghub.io/doxdox): JSDoc to Markdown, Bootstrap, and custom Handlebars template documentation generator.
+- [eslint](https://ghub.io/eslint): An AST-based pattern checker for JavaScript.
+- [mocha](https://ghub.io/mocha): simple, flexible, fun test framework
+
 ## TODO
 
 - Support downloading
 
 ## Credits
 
-Based on [transfer-sh](https://github.com/roccomuso/transfer-sh) by roccomuso
+Based on [transfer-sh](https://ghub.io/transfer-sh) by roccomuso
 
