@@ -20,7 +20,7 @@ $ yarn global add transfer.js
 ### Example
 
 ```sh
-$ transfer hello.txt --copy-url
+$ transfer-js hello.txt --copy-url
 ```
 
 Will return a link to the resource and copy it to your clipboard.
@@ -69,7 +69,7 @@ new Transfer('./Hello.enc', {password: 's3cr3t'})
 
 ## Dependencies [![Dependencies](https://img.shields.io/david/ObserverOfTime/transfer.js.svg)](https://david-dm.org/ObserverOfTime/transfer.js)
 
-- [base64-stream](https://ghub.io/base64-stream): Contains new Node.js v0.10 style stream classes for encoding / decoding Base64 data
+- [b64](https://ghub.io/b64): Base64 streaming encoder and decoder
 - [block-stream2](https://ghub.io/block-stream2): transform input into equally-sized blocks of output
 - [cli-progress](https://ghub.io/cli-progress): Easy to use Progress-Bar for Command-Line/Terminal Applications
 - [clipboardy](https://ghub.io/clipboardy): Access the system clipboard (copy/paste)

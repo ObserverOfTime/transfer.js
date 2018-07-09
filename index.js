@@ -6,7 +6,7 @@ const concat = require('concat-stream');
 const pump = require('pump');
 const crypto = require('crypto'); // eslint-disable-line no-shadow
 const through2 = require('through2');
-const base64 = require('base64-stream');
+const b64 = require('b64');
 const block = require('block-stream2');
 const eos = require('end-of-stream');
 const ProgressPromise = require('progress-promise');
@@ -111,7 +111,7 @@ Transfer.prototype.upload = function() {
  */
 Transfer.prototype._encrypt = function(inputStream) {
   return inputStream.pipe(this.sEncrypt)
-    .pipe(base64.encode())
+    .pipe(new b64.Encoder())
     .pipe(block({size: 76, zeroPadding: false}))
     .pipe(through2(function(chunk, enc, next) {
       this.push(chunk + os.EOL); // New line every 76 chars
@@ -141,7 +141,7 @@ Transfer.prototype.decrypt = function(destination) {
     try {
       // Start decryption
       fs.createReadStream(self.fileInput)
-        .pipe(base64.decode())
+        .pipe(new b64.Decoder())
         .pipe(self.sDecrypt)
         .pipe(wStream);
     } catch(error) {
