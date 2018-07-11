@@ -23,8 +23,4 @@ before_script:
   - rm -f /home/travis/build/ObserverOfTime/transfer.js/npm-debug.log
 after_deploy:
   - env _tag="${TRAVIS_TAG#v}" bash -c '[ "$(yarn info transfer.js version --silent)" == "$_tag" ] || (cat /home/travis/build/ObserverOfTime/transfer.js/npm-debug.log; travis_terminate 1)'
-after_success:
-  - curl -Ss https://raw.githubusercontent.com/k3rn31p4nic/travis-ci-discord-webhook/master/send.sh | bash -s -- success https://discordapp.com/api/webhooks/462385216955351051/pADeHfY599zAYjL9hZEqk0wQHqQMK6WoTlO5elDOffAXuXlfD3eUPoVuo0x8KJge50Za
-after_failure:
-  - curl -Ss https://raw.githubusercontent.com/k3rn31p4nic/travis-ci-discord-webhook/master/send.sh | bash -s -- failure https://discordapp.com/api/webhooks/462385216955351051/pADeHfY599zAYjL9hZEqk0wQHqQMK6WoTlO5elDOffAXuXlfD3eUPoVuo0x8KJge50Za
 
