@@ -40,10 +40,10 @@ const pkg = require('../package');
 const help = `\
   CLI tool for easy file sharing with https://transfer.sh
 
-  \x1b[4mUsage\x1b[0m
+  \x1b[4mUsage\x1b[0m\n
     $ transfer-js [FILE] [OPTIONS]
 
-  \x1b[4mOptions\x1b[0m
+  \x1b[4mOptions\x1b[0m\n
     -m, --max-days [NUMBER]       Maximum number of days.
     -M, --max-downloads [NUMBER]  Maximum number of downloads.
     -D, --download [URL]          Download file from URL.
@@ -56,15 +56,15 @@ const help = `\
     -v, --version                 Print the version and exit.
     -h, --help                    Print this help text and exit.
 
-    \x1b[4mExamples\x1b[0m
-      Upload file for 1 day with a custom name:
-        $ transfer-js file.txt -n file.tmp -m 1
-      Encrypt and upload file:
-        $ transfer-js file.txt -p p4ssw0rd
-      Download file:
-        $ transfer-js -D https://transfer.sh/I2ea5/file.txt
-      Decrypt file:
-        $ transfer-js -d file.enc -p p4ssw0rd
+  \x1b[4mExamples\x1b[0m\n
+    Upload file for 1 day with a custom name:
+      $ transfer-js file.txt -n file.tmp -m 1
+    Encrypt and upload file:
+      $ transfer-js file.txt -p p4ssw0rd
+    Download file:
+      $ transfer-js -D https://transfer.sh/I2ea5/file.txt
+    Decrypt file:
+      $ transfer-js -d file.enc -p p4ssw0rd
 `;
 
 /**

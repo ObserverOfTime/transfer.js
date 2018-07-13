@@ -1,6 +1,6 @@
 {
   "name": "transfer.js",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Fork of transfer-sh, a CLI tool for easy file sharing with https://transfer.sh",
   "main": "index.js",
   "preferGlobal": true,
