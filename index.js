@@ -86,8 +86,8 @@ Transfer.prototype.upload = function() {
       pump(encryptedStream || inputStream,
         got.stream.put(fileURL, self.httpOptions)
           .on('uploadProgress', (p) => {
-            // The uploaded size is roughly 1.016 times larger
-            // than the actual size, likely due to the metadata
+          // The uploaded size is roughly 1.016 times larger
+          // than the actual size, likely due to the metadata
             const curr = parseInt(p.transferred / 1.016 + 0.5);
             progress({
               current: (curr < stats.size) ? curr : stats.size,
@@ -95,7 +95,7 @@ Transfer.prototype.upload = function() {
               task: 'Upload'
             });
           }),
-        concat((link) => { resolve(link.toString()); }),
+        concat((link) => resolve(link.toString())),
         reject);
     });
   });
@@ -147,6 +147,36 @@ Transfer.prototype.decrypt = function(destination) {
     } catch(error) {
       return __catchError(error, self.fileInput, reject);
     }
+  });
+};
+
+/**
+ * Download file
+ *
+ * @function
+ * @param {string} destination - Destination path
+ * @returns {ProgressPromise.<string|TransferError>} -
+ * The path if resolved, a TransferError if rejected
+ */
+Transfer.prototype.download = function(destination) {
+  const self = this;
+  const url = self.fileInput;
+  const filePath = destination || path.basename(url);
+  return new ProgressPromise((resolve, reject, progress) => {
+    if(!url) reject(new TransferError('Missing file URL'));
+    pump(got.stream.get(url, self.httpOptions)
+      .on('downloadProgress', (p) => {
+        progress({
+          current: p.transferred,
+          total: p.total,
+          task: 'Download'
+        });
+      }),
+    concat((file) => {
+      fs.writeFileSync(filePath, file);
+      resolve(path.resolve(filePath));
+    }),
+    reject);
   });
 };
 

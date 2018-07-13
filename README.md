@@ -20,7 +20,7 @@ $ yarn global add transfer.js
 ### Example
 
 ```sh
-$ transfer-js hello.txt --copy-url
+$ transfer-js hello.txt --copy
 ```
 
 Will return a link to the resource and copy it to your clipboard.
@@ -31,12 +31,13 @@ Will return a link to the resource and copy it to your clipboard.
 | :-------------------: | :-------------------------------------------------------: |
 |   `-m, --max-days`    | Maximum number of days the file will stay on transfer.sh. |
 | `-M, --max-downloads` |           Maximum number of downloads allowed.            |
+|   `-D, --download`    |           Download the file from the given URL.           |
 |   `-n, --file-name`   |                Name to use for the upload.                |
-|   `-c, --copy-url`    |            Copy the file URL to the clipboard.            |
+|     `-c, --copy`      |        Copy the file URL or path to the clipboard.        |
 |  `-N, --no-progress`  |               Don't show the progress bar.                |
 |   `-p, --password`    |            Password used to encrypt the file.             |
 |    `-d, --decrypt`    |         Decrypt the file (requires `--password`).         |
-|    `-o, --output`     |                Decrypted file output path.                |
+|    `-o, --output`     |     Output path of the decrypted or downloaded file.      |
 
 ## Module usage
 
@@ -46,17 +47,24 @@ Will return a link to the resource and copy it to your clipboard.
 const Transfer = require('transfer.js');
 
 // Encrypt and upload
-new Transfer('./Hello.md', {password: 's3cr3t', filename: 'Hello.enc'})
+new Transfer('./Hello.txt', {password: 's3cr3t', filename: 'Hello.enc'})
   .upload().progress(function(prog) {
     console.log(prog.current / prog.total * 100).toFixed(1) + '%');
-  }).then(function(link) { console.log(link); })
-  .catch(function(err) { console.error(err); });
+  }).then(function(link) { console.log(link) })
+  .catch(function(err) { console.error(err) });
+
+// Download
+new Transfer('https://transfer.sh/4bcD3/Hello.enc')
+  .download().progress(function(prog) {
+    console.log(prog.current / prog.total * 100).toFixed(1) + '%');
+  }).then(function(path) { console.log(path) })
+  .catch(function(err) { console.error(err) });
 
 // Decrypt
 new Transfer('./Hello.enc', {password: 's3cr3t'})
   .decrypt('Output.md')
-  .then(function(wStream) { console.log('Decrypted!'); })
-  .catch(function(err) { console.error(err); });
+  .then(function(wStream) { console.log('Decrypted!') })
+  .catch(function(err) { console.error(err) });
 
 ```
 
@@ -64,7 +72,7 @@ new Transfer('./Hello.enc', {password: 's3cr3t'})
 
 |   Option   |                         Description                          |
 | :--------: | :----------------------------------------------------------: |
-| `filename` | If provided, the URL will use the provided name.<br>Otherwise, it will use the original name. |
+| `filename` | If provided, the upload will use the provided name.<br>Otherwise, it will use the original name. |
 | `password` | If provided, the file will be encrypted with `aes-256-cbc`<br>and encoded as base64 before the upload. |
 
 ## Dependencies [![Dependencies](https://img.shields.io/david/ObserverOfTime/transfer.js.svg)](https://david-dm.org/ObserverOfTime/transfer.js)
@@ -92,7 +100,8 @@ new Transfer('./Hello.enc', {password: 's3cr3t'})
 
 ## TODO
 
-- Support downloading
+- Support decrypting after download
+- Add more download tests
 
 ## Credits
 

@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs');
 const mocha = require('mocha');
 const describe = mocha.describe;
 const it = mocha.it;
@@ -11,6 +12,7 @@ chai.use(require('chai-as-promised'));
 chai.should();
 
 describe('Testing Transfer', () => {
+  let downloadURL;
   const file = 'tests/test.txt';
   const regex = '^https://transfer\\.sh/.+/';
   const userAgent = 'transfer.js-tester/' +
@@ -42,7 +44,8 @@ describe('Testing Transfer', () => {
     return transfer.upload().progress((prog) => {
       progressCount = prog.current;
       progressTotal = prog.total;
-    }).then(() => {
+    }).then((url) => {
+      downloadURL = url; // Save URL to download later
       progressCount.should.equal(progressTotal);
     }).should.notify(done);
   });
@@ -53,13 +56,18 @@ describe('Testing Transfer', () => {
     return transfer.upload().should.be.fulfilled;
   });
 
+  it('successful download', () => {
+    const transfer = new Transfer(downloadURL, {}, httpOpts);
+    return transfer.download(file).should.be.fulfilled;
+  });
+
   it('successful decryption', (done) => {
     const opts = {password: 't3st'};
     const enc = 'tests/test.enc';
     const transfer = new Transfer(enc, opts, httpOpts);
     return transfer.decrypt(file).should.be.fulfilled
       .then(() => {
-        require('fs').readFileSync(file).asciiSlice()
+        fs.readFileSync(file).asciiSlice()
           .should.equal('Decrypted\n');
       }).should.notify(done);
   });

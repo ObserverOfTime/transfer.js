@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="initial-scale=1">
-<title>transfer.js 0.2.0 &#8212; Fork of transfer-sh, a CLI tool for easy file sharing with https://transfer.sh</title>
+<title>transfer.js 0.3.0 &#8212; Fork of transfer-sh, a CLI tool for easy file sharing with https://transfer.sh</title>
 <meta name="description" content="Fork of transfer-sh, a CLI tool for easy file sharing with https://transfer.sh">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
@@ -163,7 +163,7 @@ input[type="search"]::-webkit-search-cancel-button {
 
         <h1>
                 <a href="https://observeroftime.github.io/transfer.js">transfer.js</a>
-            <small>0.2.0</small>
+            <small>0.3.0</small>
         </h1>
 
         <p>Fork of transfer-sh, a CLI tool for easy file sharing with https://transfer.sh</p>
@@ -215,6 +215,11 @@ input[type="search"]::-webkit-search-cancel-button {
                         </li>
 
 
+                        <li class="method-link scope-public">
+                            <a href="#index.js-transfer.prototype.download" title="Transfer.download">Transfer.download</a>
+                        </li>
+
+
                         </ul>
 
                     </li>
@@ -231,7 +236,7 @@ input[type="search"]::-webkit-search-cancel-button {
 
 
                         <li class="method-link scope-public">
-                            <a href="#bin-transfer.js-goturl" title="gotUrl">gotUrl</a>
+                            <a href="#bin-transfer.js-gotfile" title="gotFile">gotFile</a>
                         </li>
 
 
@@ -652,6 +657,82 @@ a TransferError if rejected</li>
                     </div>
 
 
+                    <div class="method scope-public">
+
+                        <h2 id="index.js-transfer.prototype.download">
+                            <a href="#index.js-transfer.prototype.download" class="permalink">#</a>
+                            <span class="method-name" title="Transfer.download(destination)">Transfer.download(destination)</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Download file</p>
+
+
+                        </div>
+
+
+                        <section class="parameters">
+
+                            <h3>Parameters</h3>
+
+                            <div class="table-responsive">
+                                <table class="table">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr>
+                                        <td>destination</td>
+                                        <td>
+                                            <code>string</code>
+                                        </td>
+                                        <td><ul>
+<li>Destination path</li>
+</ul>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                        </section>
+
+
+
+
+                        <section class="returns">
+
+                            <h3>Returns</h3>
+
+
+
+                                    <p>
+                                            <code>ProgressPromise.&lt;string|TransferError&gt;</code>
+                                    </p>
+
+                                    <ul>
+<li>The path if resolved, a TransferError if rejected</li>
+</ul>
+
+
+
+
+                        </section>
+
+                    </div>
+
+
 
                 <a id="bin/transfer.js"></a>
 
@@ -725,14 +806,14 @@ a TransferError if rejected</li>
 
                     <div class="method scope-public">
 
-                        <h2 id="bin-transfer.js-goturl">
-                            <a href="#bin-transfer.js-goturl" class="permalink">#</a>
-                            <span class="method-name" title="gotUrl(url)">gotUrl(url)</span>
+                        <h2 id="bin-transfer.js-gotfile">
+                            <a href="#bin-transfer.js-gotfile" class="permalink">#</a>
+                            <span class="method-name" title="gotFile(file)">gotFile(file)</span>
                         </h2>
 
                         <div class="description lead">
 
-                            <p>URL handler</p>
+                            <p>File handler</p>
 
 
                         </div>
@@ -756,12 +837,12 @@ a TransferError if rejected</li>
 
                                     <tbody>
                                     <tr>
-                                        <td>url</td>
+                                        <td>file</td>
                                         <td>
                                             <code>string</code>
                                         </td>
                                         <td><ul>
-<li>The URL of the file</li>
+<li>The URL or path of the file</li>
 </ul>
 </td>
                                         <td>

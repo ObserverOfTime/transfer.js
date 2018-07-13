@@ -1,14 +1,13 @@
 language: node_js
-node_js:
-  - '8'
+node_js: 8
 cache: yarn
 branches:
   only:
-    - 'master'
-    - '/^v\d(?:\.\d+){2}.*/'
+    - master
+    - '/^v\\d(?:\\.\\d+){2}.*/'
 script:
   - yarn lint
-  - yarn test --silent
+  - yarn test
 notifications:
   email: false
 deploy:
@@ -18,9 +17,7 @@ deploy:
   on:
     tags: true
   api_key:
-    secure: MJnnHMTgYKFme+2avIAjX9+8GLolEsNFxPb3y1T2Prr2++y0s/uhRL0u0n/xAoQTbKj3Ied2w3Edte0+LuYUpofOD67goOQwSjrRLOGVGUuI2Yjhaow5dYEhqS36qOQ0dG1cfEIj9t+Y5gPilDUn45VcZCgAqp8AGIgPf+njo9SMd4U/dI6L0xrWgsDyi7XOQp0p1ibPqSQsHLHQ6T2crH0KQy/V3ieqv8pVG/f0CcVuDrASejCIOF+ErdHbzcOzQDriNSxst0E2wuuPfgIPmG8TOqDIvckgr3ucs65pxlFzl0H/cVOS5XA8fCWGsr+huAvES2CFwMjEG5+VR+fr1PDe4XkMkZD4INGejy0n+Z8NSCNYM1jiWq92MIclF1KEiUpw0I30yNwl1G6zZEqwZCMubQDZm7amJE14dLpp2ynY4Pq9q9BH710QihVxeJTezOalBMBDMZzREX0LRVpU5SvCWROiqCYPznihnbmY7A8/NyPeu7SJn1MHoC9qHX+PAJiKpC4+hL7zFWjvJnM5d1AUcIPpT0H3sa0FBlC5KQb54KqjfzOgYKxqSVwhGvmrurWG4No2Ro2h5cbRhiQZzwmlBkJHd0pI+ZVS6/nQ3ZNBC+e1UrVWyJEXxjRkP4Enbhnx39hAJSOq+JNw0TCL5fToqt+TZdO0L52XbfdWA4Y=
+    secure: xWRXGJs1n5XjPCkP+PnHJO37VfRuj2fMgh+W4zaxErEE51ecPLpgHgRJ/XpVZSaNhsoGmUik4a6pEcPpGiNiluVc8iB70ltMBOW5hdVkevkZRnW0tZSThCJm2tR2Wfx8s3MjXBSpYc8hXSNFm+BcuYArnD3kOiHuAGSW6NsH3sg+g7kJduXN+VVZkmHK/1fK3yufxrs8/x5G1uKg83064ZXe7pfeYEgLhSCMO8nf0+WNtds2rlP+D8Tn92y68HWhOaRCBP2+ks9TpDt1i3uK0AOmEaWcCG+n+TkEpJxqnhY7cY7qIHGAt3UCflRgZ524atQ6fo4aD8tDWxDvQ3N9J6kZD1GJYS2/RUHJcdMpVt7hWSmPZbxAF3S7sLuOP5MOrUYGMKxlNIcbSzh0KuRIpBfRe7QihrDVKrGalR/gi/B8ZtfvM3D2ylevB3n8nSgVGUv4bPNsJ7WUbCtGwid7n/lfStRPOlTM7cpKii1yBfK7NWkAvZP8S/zTZuwiKIhAExRdr8cSP7aSkcwb0kd9YI+wC0Ff7uhzidCrZUvkJhm1rLnIB+g6re143EsSJA9S2QU7mABhqC4bmf8YfQoBhBwIDSi+C+UFU5oZZsTdNyKhWQV8tGgxGa5GHjGgH4xnhzZX0eKL+uiqoTI//ftWKg786X3sqiMQpsXYWZo5PZo=
 before_script:
-  - rm -f /home/travis/build/ObserverOfTime/transfer.js/npm-debug.log
-after_deploy:
-  - env _tag="${TRAVIS_TAG#v}" bash -c '[ "$(yarn info transfer.js version --silent)" == "$_tag" ] || (cat /home/travis/build/ObserverOfTime/transfer.js/npm-debug.log; travis_terminate 1)'
+- rm -f /home/travis/build/ObserverOfTime/transfer.js/npm-debug.log
 
