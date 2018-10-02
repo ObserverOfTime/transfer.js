@@ -1,4 +1,5 @@
 node_modules/
 *.log
+docs/index.json
 .nyc_output/
 .coveralls.yml

@@ -3,7 +3,7 @@
 [![Version](https://img.shields.io/npm/v/transfer.js.svg)](https://www.npmjs.com/package/transfer.js)
 [![Build Status](https://img.shields.io/travis/ObserverOfTime/transfer.js.svg)](https://travis-ci.org/ObserverOfTime/transfer.js)
 [![License](https://img.shields.io/badge/license-ISC-blue.svg)](./LICENSE)
-[![Coverage](https://coveralls.io/repos/github/ObserverOfTime/transfer.js/badge.svg?branch=master)](https://coveralls.io/github/ObserverOfTime/transfer.js?branch=master)
+[![Coverage](https://img.shields.io/codecov/c/github/ObserverOfTime/transfer.js.svg)](https://codecov.io/gh/ObserverOfTime/transfer.js)
 
 Node.js CLI tool for easy file sharing with [transfer.sh](https://transfer.sh)
 
@@ -97,7 +97,7 @@ The documentation is available [here](https://observeroftime.github.io/transfer.
 
 - [chai](https://ghub.io/chai): BDD/TDD assertion library for node.js and the browser. Test framework agnostic.
 - [chai-as-promised](https://ghub.io/chai-as-promised): Extends Chai with assertions about promises.
-- [coveralls](https://ghub.io/coveralls): takes json-cov output into stdin and POSTs to coveralls.io
+- [codecov](https://ghub.io/codecov): Uploading report to Codecov: https://codecov.io
 - [esdoc](https://ghub.io/esdoc): Good Documentation Generator For JavaScript
 - [esdoc-accessor-plugin](https://ghub.io/esdoc-accessor-plugin): A accessor plugin for ESDoc
 - [esdoc-integrate-test-plugin](https://ghub.io/esdoc-integrate-test-plugin): A integrate test plugin for ESDoc
