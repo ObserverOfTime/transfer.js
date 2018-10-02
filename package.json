@@ -1,21 +1,21 @@
 {
   "name": "transfer.js",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "description": "Fork of transfer-sh, a CLI tool for easy file sharing with https://transfer.sh",
-  "main": "index.js",
+  "main": "./index.js",
+  "files": [
+    "bin/",
+    "lib/"
+  ],
   "preferGlobal": true,
   "bin": {
     "transfer-js": "./bin/transfer.js"
   },
-  "files": [
-    "index.js",
-    "bin/",
-    "lib/"
-  ],
   "scripts": {
-    "gen-docs": "doxdox {.,bin,lib}/*.js -l Bootstrap -o docs/index.html",
-    "lint": "eslint {.,bin,lib,tests}/*.js",
-    "test": "mocha -t 5000 tests/test.js --exit"
+    "cover": "nyc report -r text-lcov | coveralls",
+    "docs": "nyc report -r html; esdoc -c .esdoc.json",
+    "lint": "eslint bin/*.js lib/*.js tests/*.js",
+    "test": "nyc -r text-summary mocha -t 5000 tests/test.js --exit"
   },
   "repository": "git+https://github.com/ObserverOfTime/transfer.js.git",
   "keywords": [
@@ -38,19 +38,35 @@
     "block-stream2": "^1.1.0",
     "cli-progress": "^2.0.0",
     "clipboardy": "^1.2.3",
-    "concat-stream": "^1.6.2",
     "end-of-stream": "^1.4.1",
     "got": "^9.2.1",
+    "mime-types": "^2.1.20",
     "minimist": "^1.2.0",
     "progress-promise": "^0.0.6",
-    "pump": "^3.0.0",
     "through2": "^2.0.3"
   },
   "devDependencies": {
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
-    "doxdox": "^2.0.3",
+    "coveralls": "^3.0.2",
+    "esdoc": "^1.1.0",
+    "esdoc-accessor-plugin": "^1.0.0",
+    "esdoc-integrate-test-plugin": "^1.0.0",
+    "esdoc-publish-html-plugin": "^1.1.2",
+    "esdoc-undocumented-identifier-plugin": "^1.0.0",
     "eslint": "^5.1.0",
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "nyc": "^13.0.1"
+  },
+  "nyc": {
+    "check-coverage": true,
+    "lines": 80,
+    "statements": 80,
+    "functions": 80,
+    "branches": 60,
+    "include": ["lib/*.js"],
+    "ignore-class-method": "_encrypt",
+    "report-dir": "./docs/coverage",
+    "cache": true
   }
 }

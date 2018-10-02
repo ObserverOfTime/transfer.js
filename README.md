@@ -3,6 +3,7 @@
 [![Version](https://img.shields.io/npm/v/transfer.js.svg)](https://www.npmjs.com/package/transfer.js)
 [![Build Status](https://img.shields.io/travis/ObserverOfTime/transfer.js.svg)](https://travis-ci.org/ObserverOfTime/transfer.js)
 [![License](https://img.shields.io/badge/license-ISC-blue.svg)](./LICENSE)
+[![Coverage](https://coveralls.io/repos/github/ObserverOfTime/transfer.js/badge.svg?branch=master)](https://coveralls.io/github/ObserverOfTime/transfer.js?branch=master)
 
 Node.js CLI tool for easy file sharing with [transfer.sh](https://transfer.sh)
 
@@ -75,35 +76,46 @@ new Transfer('./Hello.enc', {password: 's3cr3t'})
 | `filename` | If provided, the upload will use the provided name.<br>Otherwise, it will use the original name. |
 | `password` | If provided, the file will be encrypted with `aes-256-cbc`<br>and encoded as base64 before the upload. |
 
+## Documentation
+
+The documentation is available [here](https://observeroftime.github.io/transfer.js).
+
 ## Dependencies [![Dependencies](https://img.shields.io/david/ObserverOfTime/transfer.js.svg)](https://david-dm.org/ObserverOfTime/transfer.js)
 
 - [b64](https://ghub.io/b64): Base64 streaming encoder and decoder
 - [block-stream2](https://ghub.io/block-stream2): transform input into equally-sized blocks of output
 - [cli-progress](https://ghub.io/cli-progress): Easy to use Progress-Bar for Command-Line/Terminal Applications
 - [clipboardy](https://ghub.io/clipboardy): Access the system clipboard (copy/paste)
-- [concat-stream](https://ghub.io/concat-stream): writable stream that concatenates strings or binary data and calls a callback with the result
 - [end-of-stream](https://ghub.io/end-of-stream): Call a callback when a readable/writable/duplex stream has completed or failed.
 - [got](https://ghub.io/got): Simplified HTTP requests
+- [mime-types](https://ghub.io/mime-types): The ultimate javascript content-type utility.
 - [minimist](https://ghub.io/minimist): parse argument options
 - [progress-promise](https://ghub.io/progress-promise): Promise subclass with mechanism to report progress before resolving
-- [pump](https://ghub.io/pump): pipe streams together and close all of them if one of them closes
 - [through2](https://ghub.io/through2): A tiny wrapper around Node streams2 Transform to avoid explicit subclassing noise
-
 
 ## Dev Dependencies [![Dev Dependencies](https://img.shields.io/david/dev/ObserverOfTime/transfer.js.svg)](https://david-dm.org/ObserverOfTime/transfer.js?type=dev)
 
 - [chai](https://ghub.io/chai): BDD/TDD assertion library for node.js and the browser. Test framework agnostic.
 - [chai-as-promised](https://ghub.io/chai-as-promised): Extends Chai with assertions about promises.
-- [doxdox](https://ghub.io/doxdox): JSDoc to Markdown, Bootstrap, and custom Handlebars template documentation generator.
+- [coveralls](https://ghub.io/coveralls): takes json-cov output into stdin and POSTs to coveralls.io
+- [esdoc](https://ghub.io/esdoc): Good Documentation Generator For JavaScript
+- [esdoc-accessor-plugin](https://ghub.io/esdoc-accessor-plugin): A accessor plugin for ESDoc
+- [esdoc-integrate-test-plugin](https://ghub.io/esdoc-integrate-test-plugin): A integrate test plugin for ESDoc
+- [esdoc-publish-html-plugin](https://ghub.io/esdoc-publish-html-plugin): A publish HTML plugin for ESDoc
+- [esdoc-undocumented-identifier-plugin](https://ghub.io/esdoc-undocumented-identifier-plugin): A undocumented identifier plugin for ESDoc
 - [eslint](https://ghub.io/eslint): An AST-based pattern checker for JavaScript.
 - [mocha](https://ghub.io/mocha): simple, flexible, fun test framework
+- [nyc](https://ghub.io/nyc): the Istanbul command line interface
 
 ## TODO
 
 - Support decrypting after download
+- Add more options to the executable
+- Use a better argument parser
+- Allow custom transfer domains
 - Add more download tests
 
 ## Credits
 
-Based on [transfer-sh](https://ghub.io/transfer-sh) by roccomuso
+Based on [transfer-sh](https://ghub.io/transfer-sh) by roccomuso.
 

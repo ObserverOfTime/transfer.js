@@ -28,15 +28,19 @@ const argv = require('minimist')(process.argv.slice(2), {
     'download': 'D'
   }
 });
+
 const cliProgress = require('cli-progress');
+const clipboardy = require('clipboardy');
+
+const Transfer = require('..');
+const {name: pkg, version} = require('../package');
+
 const bar = new cliProgress.Bar({
   format: '{task}ing [{bar}] {percentage}%' +
   ' | ETA: {eta_formatted} | {value}/{total}',
   barsize: 30, fps: 2, etaBuffer: 4
 }, cliProgress.Presets.legacy);
-const clipboardy = require('clipboardy');
-const Transfer = require('../index');
-const pkg = require('../package');
+
 const help = `\
   CLI tool for easy file sharing with https://transfer.sh
 
@@ -116,17 +120,21 @@ function progressBar(prog) {
   }
 }
 
-/**
- * Checks whether arguments were passed
- *
- * @returns {boolean} - True if no arguments were passed
- */
-function noArgs() {
-  return (argv._.length === 0 &&
-    Object.keys(argv).length === 1);
+if (argv.v) {
+  console.log(`${pkg} v${version}`);
+  process.exit(0);
 }
 
-if(noArgs()) {
+/**
+ * Identifies whether arguments were passed
+ *
+ * @constant
+ * @protected
+ * @type {boolean}
+ */
+const HAS_ARGS = (argv._.length > 0 && Object.keys(argv).length > 3);
+
+if(!HAS_ARGS) {
   console.error(help);
   process.exit(2);
 }
@@ -136,24 +144,18 @@ if(argv.h) {
   process.exit(0);
 }
 
-if (argv.v) {
-  console.log(`${pkg.name} v${pkg.version}`);
-  process.exit(0);
-}
-
 const opts = {
   password: argv.p,
   filename: argv.n
 };
 const httpOpts = {
   headers: {
-    'User-Agent': `${pkg.name}/${pkg.version}`
+    'User-Agent': `${pkg}/${version}`
   },
   throwHttpErrors: true
 };
 if(argv.m) httpOpts.headers['Max-Days'] = argv.m;
 if(argv.M) httpOpts.headers['Max-Downloads'] = argv.M;
-
 
 if(argv.D) { // Download
   new Transfer(argv.D, opts, httpOpts)
@@ -172,7 +174,6 @@ if(argv.D) { // Download
     .then(() => console.log('Successfully decrypted in', output))
     .catch(catchError);
 } else { // Upload
-  if(argv._.length === 0) argv._.push('');
   for(const i in argv._) {
     new Transfer(argv._[i], opts, httpOpts)
       .upload()
