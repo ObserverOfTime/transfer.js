@@ -1,0 +1,25 @@
+{
+  "tags": {
+    "allowUnknownTags": false,
+    "dictionaries": ["jsdoc"]
+  },
+  "source": {
+    "include": [
+      "lib/Transfer.js",
+      "bin/transfer.js",
+      "README.md"
+    ]
+  },
+  "plugins": ["plugins/markdown"],
+  "markdown": {"idInHeadings": true},
+  "templates": {"cleverLinks": true},
+  "reconbot": {"github": "https://github.com/ObserverOfTime/transfer.js"},
+  "opts": {
+    "destination": "./docs/",
+    "encoding": "utf8",
+    "verbose": true,
+    "private": false,
+    "template": "./node_modules/@reconbot/jsdoc-theme"
+  }
+}
+

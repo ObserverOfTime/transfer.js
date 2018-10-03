@@ -311,9 +311,7 @@
 <a name='L263'></a><a href='#L263'>263</a>
 <a name='L264'></a><a href='#L264'>264</a>
 <a name='L265'></a><a href='#L265'>265</a>
-<a name='L266'></a><a href='#L266'>266</a>
-<a name='L267'></a><a href='#L267'>267</a>
-<a name='L268'></a><a href='#L268'>268</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L266'></a><a href='#L266'>266</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -578,9 +576,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const fs = require('fs');
+<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">const fs = require('fs');
 const path = require('path');
 const got = require('got');
 const crypt = require('crypto');
@@ -593,25 +589,29 @@ const {EOL, tmpdir} = require('os');
 const {lookup: mime} = require('mime-types');
 const {PassThrough: PassThroughStream} = require('stream');
 &nbsp;
-/** @external {ProgressPromise} https://www.npmjs.com/package/progress-promise */
+/**
+ * @external ProgressPromise
+ * @desc Promise subclass with mechanism to report progress before resolving
+ * @see {@link https://www.npmjs.com/package/progress-promise|progress-promise}
+ */
 const ProgressPromise = require('progress-promise');
 &nbsp;
 /**
- * The root domain (https://transfer.sh)
+ * The root domain
  *
  * @constant
- * @protected
  * @type {string}
+ * @default &lt;a href="https://transfer.sh"&gt;https://transfer.sh&lt;/a&gt;
  * @todo Make this configurable
  */
 const DOMAIN = 'https://transfer.sh';
 &nbsp;
 /**
- * The algorithm used for encryption (aes-256-cbc)
+ * The algorithm used for encryption
  *
  * @constant
- * @protected
  * @type {string}
+ * @default aes-256-cbc
  */
 const ALGORITHM = 'aes-256-cbc';
 &nbsp;
@@ -622,12 +622,6 @@ const ALGORITHM = 'aes-256-cbc';
  * @see &lt;a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error"&gt;Error&lt;/a&gt;
  */
 class TransferError extends Error {
-  /**
-   * Error name (TransferError)
-   *
-   * @override
-   * @type {string}
-   */
   get name() { return 'TransferError' }
 }
 &nbsp;
@@ -643,18 +637,18 @@ function __catchError(error, file, reject) {
   let msg;
   const filePath = path.resolve(file);
   switch(error.code) {
-<span class="branch-0 cbranch-no" title="branch not covered" >    case 'EACCESS':</span>
-<span class="cstat-no" title="statement not covered" >      msg = 'Cannot read file: ' + filePath;</span>
-<span class="cstat-no" title="statement not covered" >      reject(new TransferError(msg));</span>
+    case 'EACCESS':
+      msg = 'Cannot read file: ' + filePath;
+<span class="branch-0 cbranch-no" title="branch not covered" >      reject(new TransferError(msg));</span>
 <span class="cstat-no" title="statement not covered" >      break;</span>
-    case 'ENOENT':
-      msg = 'File not found: ' + filePath;
+    ca<span class="cstat-no" title="statement not covered" >se 'ENOENT':</span>
+<span class="cstat-no" title="statement not covered" >      msg = '</span>File not found: ' + filePath;
       reject(new TransferError(msg));
       break;
-<span class="branch-2 cbranch-no" title="branch not covered" >    default:</span>
-<span class="cstat-no" title="statement not covered" >      reject(error);</span>
-  }
-}
+    default:
+      reject(error);
+  }<span class="branch-2 cbranch-no" title="branch not covered" ></span>
+}<span class="cstat-no" title="statement not covered" ></span>
 &nbsp;
 /**
  * Class representing a Transfer
@@ -673,9 +667,9 @@ class Transfer {
    * @param {TransferOptions} [options={}] - Transfer options
    * @param {Object} [httpOptions={}] - HTTP options
    */
-  constructor(fileInput, options=<span class="branch-0 cbranch-no" title="branch not covered" >{},</span> httpOptions=<span class="branch-0 cbranch-no" title="branch not covered" >{})</span> {
+  constructor(fileInput, options={}, httpOptions={}) {
     /**
-     * The input file path/URL
+     * The input file path/URL<span class="branch-0 cbranch-no" title="branch not covered" ><span class="branch-0 cbranch-no" title="branch not covered" ></span></span>
      *
      * @type {string}
      */
@@ -696,15 +690,15 @@ class Transfer {
   get sEncrypt() {
     return this.options.password ?
       crypt.createCipher(ALGORITHM, this.options.password) :
-<span class="branch-1 cbranch-no" title="branch not covered" >      new PassThroughStream();</span>
+      new PassThroughStream();
   }
-&nbsp;
+<span class="branch-1 cbranch-no" title="branch not covered" ></span>
   get sDecrypt() {
     return this.options.password ?
       crypt.createDecipher(ALGORITHM, this.options.password) :
-<span class="branch-1 cbranch-no" title="branch not covered" >      new PassThroughStream();</span>
+      new PassThroughStream();
   }
-&nbsp;
+<span class="branch-1 cbranch-no" title="branch not covered" ></span>
   /**
    * Adds &lt;a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type"&gt;Content-Type&lt;/a&gt;
    * header to the request
@@ -716,20 +710,20 @@ class Transfer {
    */
   _contentType(options, file=null) {
     if(!options.headers['Content-Type']) {
-      <span class="missing-if-branch" title="else path not taken" >E</span>if(file !== null) {
+      if(file !== null) {
         options.headers['Content-Type'] =
-          mime(path.extname(file)) || <span class="branch-1 cbranch-no" title="branch not covered" >'text/plain';</span>
+      <span class="missing-if-branch" title="else path not taken" >E</span>    mime(path.extname(file)) || 'text/plain';
       } else {
-<span class="cstat-no" title="statement not covered" >        options.headers['Content-Type'] =</span>
+        options.headers['Content-Type'<span class="branch-1 cbranch-no" title="branch not covered" >] =</span>
           'application/octet-stream';
-      }
+      }<span class="cstat-no" title="statement not covered" ></span>
     }
   }
 &nbsp;
   /**
    * Upload a file to {@link DOMAIN}
    *
-   * @returns {ProgressPromise.&lt;string|TransferError&gt;} -
+   * @returns {external:ProgressPromise.&lt;string|TransferError&gt;} -
    * The link if resolved, a TransferError if rejected
    */
   upload() {
@@ -769,18 +763,18 @@ class Transfer {
    *
    * @function
    * @param {string} destination - Destination path
-   * @returns {ProgressPromise.&lt;string|TransferError&gt;} -
+   * @returns {external:ProgressPromise.&lt;string|TransferError&gt;} -
    * The path if resolved, a {@link TransferError} if rejected
    * @todo Support decrypting
    */
   download(destination) {
     const self = this;
     const url = self.fileInput;
-    const filePath = destination || <span class="branch-1 cbranch-no" title="branch not covered" >path.basename(url);</span>
+    const filePath = destination || path.basename(url);
     return new ProgressPromise((resolve, reject, progress) =&gt; {
-      <span class="missing-if-branch" title="if path not taken" >I</span>if(!url) <span class="cstat-no" title="statement not covered" >reject(new TransferError('Missing file URL'));</span>
+      if(!url) reject(new TransferEr<span class="branch-1 cbranch-no" title="branch not covered" >ror('Missing file U</span>RL'));
       got.get(url, self.httpOptions)
-        .on('downloadProgress', p =&gt; {
+      <span class="missing-if-branch" title="if path not taken" >I</span>  .on('do<span class="cstat-no" title="statement not covered" >wnloadProgress', p =&gt; {</span>
           progress({
             current: p.transferred,
             total: p.total,
@@ -825,13 +819,13 @@ class Transfer {
   decrypt(destination) {
     const self = this;
     return new Promise((resolve, reject) =&gt; {
-      <span class="missing-if-branch" title="if path not taken" >I</span>if(!destination)
-<span class="cstat-no" title="statement not covered" >        reject(new TransferError('Missing decrypted file destination'));</span>
-      const wStream = fs.createWriteStream(destination);
-      eos(wStream, (err) =&gt; {
-        <span class="missing-if-branch" title="if path not taken" >I</span>if(err) <span class="cstat-no" title="statement not covered" >return reject(err);</span>
+      if(!destination)
+        reject(new TransferError('Missing decrypted file destination'));
+      <span class="missing-if-branch" title="if path not taken" >I</span>const wStream = fs.createWriteStream(destination);
+      eo<span class="cstat-no" title="statement not covered" >s(wStream, (err) =&gt; {</span>
+        if(err) return reject(err);
         resolve(this);
-      });
+      })<span class="missing-if-branch" title="if path not taken" >I</span>;<span class="cstat-no" title="statement not covered" ></span>
       try {
         // Start decryption
         fs.createReadStream(self.fileInput)
@@ -839,9 +833,9 @@ class Transfer {
           .pipe(self.sDecrypt)
           .pipe(wStream);
       } catch(error) {
-<span class="cstat-no" title="statement not covered" >        return __catchError(error, self.fileInput, reject);</span>
+        return __catchError(error, self.fileInput, reject);
       }
-    });
+    });<span class="cstat-no" title="statement not covered" ></span>
   }
 }
 &nbsp;
@@ -853,7 +847,7 @@ module.exports = {Transfer, TransferError};
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Oct 03 2018 00:04:19 GMT+0300 (EEST)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Oct 04 2018 00:23:24 GMT+0300 (Eastern European Summer Time)
 </div>
 </div>
 <script src="prettify.js"></script>

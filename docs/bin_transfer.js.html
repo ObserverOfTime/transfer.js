@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>bin/transfer.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+    <a href="https://github.com/ObserverOfTime/transfer.js" class="github-corner" aria-label="View source on Github">
+        <svg width="80" height="80" viewBox="0 0 250 250" style="fill:#e31c60; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg>
+    </a>
+    <style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <!-- http://tholman.com/github-corners/ -->
+
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Transfer.html">Transfer</a><ul class='methods'><li data-type='method'><a href="Transfer.html#_contentType">_contentType</a></li><li data-type='method'><a href="Transfer.html#_encrypt">_encrypt</a></li><li data-type='method'><a href="Transfer.html#decrypt">decrypt</a></li><li data-type='method'><a href="Transfer.html#download">download</a></li><li data-type='method'><a href="Transfer.html#upload">upload</a></li></ul></li><li><a href="TransferError.html">TransferError</a></li></ul><h3>Externals</h3><ul><li><a href="external-ProgressPromise.html">ProgressPromise</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ALGORITHM">ALGORITHM</a></li><li><a href="global.html#catchError">catchError</a></li><li><a href="global.html#DOMAIN">DOMAIN</a></li><li><a href="global.html#gotFile">gotFile</a></li><li><a href="global.html#HAS_ARGS">HAS_ARGS</a></li><li><a href="global.html#progressBar">progressBar</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">bin/transfer.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>#!/usr/bin/env node
+
+const argv = require('minimist')(process.argv.slice(2), {
+  boolean: [
+    'copy-url',
+    'no-progress'
+  ],
+  string: [
+    'max-days',
+    'max-downloads',
+    'output',
+    'decrypt',
+    'password',
+    'file-name',
+    'download'
+  ],
+  alias: {
+    'help': 'h',
+    'version': 'v',
+    'max-days': 'm',
+    'max-downloads': 'M',
+    'output': 'o',
+    'decrypt': 'd',
+    'password': 'p',
+    'copy': 'c',
+    'file-name': 'n',
+    'no-progress': 'N',
+    'download': 'D'
+  }
+});
+
+const cliProgress = require('cli-progress');
+const clipboardy = require('clipboardy');
+
+const Transfer = require('..');
+const {name: pkg, version} = require('../package');
+
+const bar = new cliProgress.Bar({
+  format: '{task}ing [{bar}] {percentage}%' +
+  ' | ETA: {eta_formatted} | {value}/{total}',
+  barsize: 30, fps: 2, etaBuffer: 4
+}, cliProgress.Presets.legacy);
+
+const help = `\
+  CLI tool for easy file sharing with https://transfer.sh
+
+  \x1b[4mUsage\x1b[0m\n
+    $ transfer-js [FILE] [OPTIONS]
+
+  \x1b[4mOptions\x1b[0m\n
+    -m, --max-days [NUMBER]       Maximum number of days.
+    -M, --max-downloads [NUMBER]  Maximum number of downloads.
+    -D, --download [URL]          Download file from URL.
+    -n, --file-name [NAME]        Name to use for the upload.
+    -p, --password [PASS]         Password used to encrypt the file.
+    -d, --decrypt [FILE]          Decrypt the file (requires --password).
+    -o, --output [PATH]           Decrypted/downloaded file output path.
+    -c, --copy                    Copy the file URL/path to the clipboard.
+    -N, --no-progress             Don't show the progress bar.
+    -v, --version                 Print the version and exit.
+    -h, --help                    Print this help text and exit.
+
+  \x1b[4mExamples\x1b[0m\n
+    Upload file for 1 day with a custom name:
+      $ transfer-js file.txt -n file.tmp -m 1
+    Encrypt and upload file:
+      $ transfer-js file.txt -p p4ssw0rd
+    Download file:
+      $ transfer-js -D https://transfer.sh/I2ea5/file.txt
+    Decrypt file:
+      $ transfer-js -d file.enc -p p4ssw0rd
+`;
+
+/**
+ * Error handler
+ *
+ * @function
+ * @param {Error} err - The caught error
+ */
+function catchError(err) {
+  if (err) {
+    if(!argv.N) bar.stop();
+    console.error(err.stack);
+    process.exit(1);
+  }
+}
+
+/**
+ * File handler
+ *
+ * @function
+ * @param {string} file - The URL or path of the file
+ */
+function gotFile(file) {
+  if(!argv.N) {
+    bar.update(bar.total);
+    bar.stop();
+  }
+  console.log(file);
+  if(argv.c) {
+    clipboardy.write(file).then(() => {
+      console.log(' \uD83D\uDCCB Copied to the clipboard');
+    }).catch(catchError);
+  }
+}
+
+/**
+ * Progress handler
+ *
+ * @function
+ * @param {Object} prog - Progress details
+ */
+function progressBar(prog) {
+  if(!argv.N) {
+    if(!bar.startTime) {
+      bar.start(prog.total, 0, {task: prog.task});
+    } else {
+      bar.update(prog.current);
+    }
+  }
+}
+
+if (argv.v) {
+  console.log(`${pkg} v${version}`);
+  process.exit(0);
+}
+
+/**
+ * Identifies whether arguments were passed
+ *
+ * @constant
+ * @protected
+ * @type {boolean}
+ */
+const HAS_ARGS = (argv._.length > 0 &amp;&amp; Object.keys(argv).length > 3);
+
+if(!HAS_ARGS) {
+  console.error(help);
+  process.exit(2);
+}
+
+if(argv.h) {
+  console.log(help);
+  process.exit(0);
+}
+
+const opts = {
+  password: argv.p,
+  filename: argv.n
+};
+const httpOpts = {
+  headers: {
+    'User-Agent': `${pkg}/${version}`
+  },
+  throwHttpErrors: true
+};
+if(argv.m) httpOpts.headers['Max-Days'] = argv.m;
+if(argv.M) httpOpts.headers['Max-Downloads'] = argv.M;
+
+if(argv.D) { // Download
+  new Transfer(argv.D, opts, httpOpts)
+    .download(argv.o)
+    .progress(progressBar)
+    .then(gotFile)
+    .catch(catchError);
+} else if(argv.d) { // Decrypt
+  if(!argv.p) catchError(new Error('No password provided'));
+  const ext = require('path').extname(argv.d);
+  let output = (!ext) ? `${argv.d}-decrypted` :
+    `${argv.d.replace(ext, '')}-decrypted${ext}`;
+  if(argv.o) output = argv.o;
+  new Transfer(argv.d, opts, httpOpts)
+    .decrypt(output)
+    .then(() => console.log('Successfully decrypted in', output))
+    .catch(catchError);
+} else { // Upload
+  for(const i in argv._) {
+    new Transfer(argv._[i], opts, httpOpts)
+      .upload()
+      .progress(progressBar)
+      .then(gotFile)
+      .catch(catchError);
+  }
+}
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated at Thu Oct 04 2018 00:23:24 GMT+0300 (Eastern European Summer Time)
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
