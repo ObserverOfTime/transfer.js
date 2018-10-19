@@ -30,7 +30,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Transfer.html">Transfer</a><ul class='methods'><li data-type='method'><a href="Transfer.html#_contentType">_contentType</a></li><li data-type='method'><a href="Transfer.html#_encrypt">_encrypt</a></li><li data-type='method'><a href="Transfer.html#decrypt">decrypt</a></li><li data-type='method'><a href="Transfer.html#download">download</a></li><li data-type='method'><a href="Transfer.html#upload">upload</a></li></ul></li><li><a href="TransferError.html">TransferError</a></li></ul><h3>Externals</h3><ul><li><a href="external-ProgressPromise.html">ProgressPromise</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ALGORITHM">ALGORITHM</a></li><li><a href="global.html#catchError">catchError</a></li><li><a href="global.html#DOMAIN">DOMAIN</a></li><li><a href="global.html#gotFile">gotFile</a></li><li><a href="global.html#HAS_ARGS">HAS_ARGS</a></li><li><a href="global.html#progressBar">progressBar</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Transfer.html">Transfer</a><ul class='methods'><li data-type='method'><a href="Transfer.html#_contentType">_contentType</a></li><li data-type='method'><a href="Transfer.html#download">download</a></li><li data-type='method'><a href="Transfer.html#upload">upload</a></li></ul></li><li><a href="TransferError.html">TransferError</a></li></ul><h3>Externals</h3><ul><li><a href="external-got.html">got</a></li><li><a href="external-ProgressPromise.html">ProgressPromise</a></li></ul><h3>Global</h3><ul><li><a href="global.html#catchError">catchError</a></li><li><a href="global.html#DOMAIN">DOMAIN</a></li><li><a href="global.html#gotFile">gotFile</a></li><li><a href="global.html#HAS_ARGS">HAS_ARGS</a></li><li><a href="global.html#progressBar">progressBar</a></li></ul>
 </nav>
 
 <div id="main">
@@ -100,14 +100,6 @@ $ yarn global add transfer.js</code></pre><h2 id="cli-usage">CLI Usage</h2>
 <td style="text-align:center">Don't show the progress bar.</td>
 </tr>
 <tr>
-<td style="text-align:center"><code>-p, --password</code></td>
-<td style="text-align:center">Password used to encrypt the file.</td>
-</tr>
-<tr>
-<td style="text-align:center"><code>-d, --decrypt</code></td>
-<td style="text-align:center">Decrypt the file (requires <code>--password</code>).</td>
-</tr>
-<tr>
 <td style="text-align:center"><code>-o, --output</code></td>
 <td style="text-align:center">Output path of the decrypted or downloaded file.</td>
 </tr>
@@ -117,80 +109,45 @@ $ yarn global add transfer.js</code></pre><h2 id="cli-usage">CLI Usage</h2>
 <h3 id="example">Example</h3>
 <pre class="prettyprint source lang-javascript"><code>const Transfer = require('transfer.js');
 
-// Encrypt and upload
-new Transfer('./Hello.txt', {password: 's3cr3t', filename: 'Hello.enc'})
-  .upload().progress(function(prog) {
-    console.log(prog.current / prog.total * 100).toFixed(1) + '%');
-  }).then(function(link) { console.log(link) })
-  .catch(function(err) { console.error(err) });
+// Upload
+new Transfer('./Hello.txt')
+  .upload().progress((prog) => {
+    console.log((prog.current / prog.total * 100).toFixed(1) + '%');
+  }).then(console.log).catch(console.error);
 
 // Download
-new Transfer('https://transfer.sh/4bcD3/Hello.enc')
-  .download().progress(function(prog) {
-    console.log(prog.current / prog.total * 100).toFixed(1) + '%');
-  }).then(function(path) { console.log(path) })
-  .catch(function(err) { console.error(err) });
-
-// Decrypt
-new Transfer('./Hello.enc', {password: 's3cr3t'})
-  .decrypt('Output.md')
-  .then(function(wStream) { console.log('Decrypted!') })
-  .catch(function(err) { console.error(err) });
-</code></pre><h3 id="options">Options</h3>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">Option</th>
-<th style="text-align:center">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><code>filename</code></td>
-<td style="text-align:center">If provided, the upload will use the provided name.<br>Otherwise, it will use the original name.</td>
-</tr>
-<tr>
-<td style="text-align:center"><code>password</code></td>
-<td style="text-align:center">If provided, the file will be encrypted with <code>aes-256-cbc</code><br>and encoded as base64 before the upload.</td>
-</tr>
-</tbody>
-</table>
-<h2 id="documentation">Documentation</h2>
+new Transfer('https://transfer.sh/4bcD3/Hello.txt')
+  .download().progress((prog) => {
+    console.log((prog.current / prog.total * 100).toFixed(1) + '%');
+  }).then(console.log).catch(console.error);</code></pre><h2 id="documentation">Documentation</h2>
 <p>The documentation is available <a href="https://observeroftime.github.io/transfer.js">here</a>.</p>
 <h2 id="dependencies-dependencies">Dependencies <a href="https://david-dm.org/ObserverOfTime/transfer.js"><img src="https://img.shields.io/david/ObserverOfTime/transfer.js.svg" alt="Dependencies"></a></h2>
 <ul>
-<li><a href="https://ghub.io/b64">b64</a>: Base64 streaming encoder and decoder</li>
-<li><a href="https://ghub.io/block-stream2">block-stream2</a>: transform input into equally-sized blocks of output</li>
 <li><a href="https://ghub.io/cli-progress">cli-progress</a>: Easy to use Progress-Bar for Command-Line/Terminal Applications</li>
 <li><a href="https://ghub.io/clipboardy">clipboardy</a>: Access the system clipboard (copy/paste)</li>
-<li><a href="https://ghub.io/end-of-stream">end-of-stream</a>: Call a callback when a readable/writable/duplex stream has completed or failed.</li>
 <li><a href="https://ghub.io/got">got</a>: Simplified HTTP requests</li>
 <li><a href="https://ghub.io/mime-types">mime-types</a>: The ultimate javascript content-type utility.</li>
 <li><a href="https://ghub.io/minimist">minimist</a>: parse argument options</li>
 <li><a href="https://ghub.io/progress-promise">progress-promise</a>: Promise subclass with mechanism to report progress before resolving</li>
-<li><a href="https://ghub.io/through2">through2</a>: A tiny wrapper around Node streams2 Transform to avoid explicit subclassing noise</li>
 </ul>
 <h2 id="dev-dependencies-dev-dependencies">Dev Dependencies <a href="https://david-dm.org/ObserverOfTime/transfer.js?type=dev"><img src="https://img.shields.io/david/dev/ObserverOfTime/transfer.js.svg" alt="Dev Dependencies"></a></h2>
 <ul>
+<li><a href="https://ghub.io/@reconbot/jsdoc-theme">@reconbot/jsdoc-theme</a>: A JSDoc Theme / Template</li>
 <li><a href="https://ghub.io/chai">chai</a>: BDD/TDD assertion library for node.js and the browser. Test framework agnostic.</li>
 <li><a href="https://ghub.io/chai-as-promised">chai-as-promised</a>: Extends Chai with assertions about promises.</li>
 <li><a href="https://ghub.io/codecov">codecov</a>: Uploading report to Codecov: https://codecov.io</li>
-<li><a href="https://ghub.io/esdoc">esdoc</a>: Good Documentation Generator For JavaScript</li>
-<li><a href="https://ghub.io/esdoc-accessor-plugin">esdoc-accessor-plugin</a>: A accessor plugin for ESDoc</li>
-<li><a href="https://ghub.io/esdoc-integrate-test-plugin">esdoc-integrate-test-plugin</a>: A integrate test plugin for ESDoc</li>
-<li><a href="https://ghub.io/esdoc-publish-html-plugin">esdoc-publish-html-plugin</a>: A publish HTML plugin for ESDoc</li>
-<li><a href="https://ghub.io/esdoc-undocumented-identifier-plugin">esdoc-undocumented-identifier-plugin</a>: A undocumented identifier plugin for ESDoc</li>
 <li><a href="https://ghub.io/eslint">eslint</a>: An AST-based pattern checker for JavaScript.</li>
+<li><a href="https://ghub.io/jsdoc">jsdoc</a>: An API documentation generator for JavaScript.</li>
 <li><a href="https://ghub.io/mocha">mocha</a>: simple, flexible, fun test framework</li>
 <li><a href="https://ghub.io/nyc">nyc</a>: the Istanbul command line interface</li>
 </ul>
 <h2 id="todo">TODO</h2>
 <ul>
-<li>Support decrypting after download</li>
 <li>Add more options to the executable</li>
 <li>Use a better argument parser</li>
 <li>Allow custom transfer domains</li>
 <li>Add more download tests</li>
+<li>Add executable tests</li>
 </ul>
 <h2 id="credits">Credits</h2>
 <p>Based on <a href="https://ghub.io/transfer-sh">transfer-sh</a> by roccomuso.</p></article>
@@ -206,7 +163,7 @@ new Transfer('./Hello.enc', {password: 's3cr3t'})
 <br class="clear">
 
 <footer>
-    Documentation generated at Thu Oct 04 2018 00:23:24 GMT+0300 (Eastern European Summer Time)
+    Documentation generated at Fri Oct 19 2018 16:23:49 GMT+0300 (Eastern European Summer Time)
 </footer>
 
 <script>prettyPrint();</script>

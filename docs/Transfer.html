@@ -30,7 +30,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Transfer.html">Transfer</a><ul class='methods'><li data-type='method'><a href="Transfer.html#_contentType">_contentType</a></li><li data-type='method'><a href="Transfer.html#_encrypt">_encrypt</a></li><li data-type='method'><a href="Transfer.html#decrypt">decrypt</a></li><li data-type='method'><a href="Transfer.html#download">download</a></li><li data-type='method'><a href="Transfer.html#upload">upload</a></li></ul></li><li><a href="TransferError.html">TransferError</a></li></ul><h3>Externals</h3><ul><li><a href="external-ProgressPromise.html">ProgressPromise</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ALGORITHM">ALGORITHM</a></li><li><a href="global.html#catchError">catchError</a></li><li><a href="global.html#DOMAIN">DOMAIN</a></li><li><a href="global.html#gotFile">gotFile</a></li><li><a href="global.html#HAS_ARGS">HAS_ARGS</a></li><li><a href="global.html#progressBar">progressBar</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Transfer.html">Transfer</a><ul class='methods'><li data-type='method'><a href="Transfer.html#_contentType">_contentType</a></li><li data-type='method'><a href="Transfer.html#download">download</a></li><li data-type='method'><a href="Transfer.html#upload">upload</a></li></ul></li><li><a href="TransferError.html">TransferError</a></li></ul><h3>Externals</h3><ul><li><a href="external-got.html">got</a></li><li><a href="external-ProgressPromise.html">ProgressPromise</a></li></ul><h3>Global</h3><ul><li><a href="global.html#catchError">catchError</a></li><li><a href="global.html#DOMAIN">DOMAIN</a></li><li><a href="global.html#gotFile">gotFile</a></li><li><a href="global.html#HAS_ARGS">HAS_ARGS</a></li><li><a href="global.html#progressBar">progressBar</a></li></ul>
 </nav>
 
 <div id="main">
@@ -65,7 +65,7 @@
     <h2>Constructor</h2>
     
 
-    <h4 class="name" id="Transfer"><span class="type-signature"></span>new Transfer<span class="signature">(fileInput, options<span class="signature-attributes">opt</span>, httpOptions<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="Transfer"><span class="type-signature"></span>new Transfer<span class="signature">(fileInput, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
 
     
 
@@ -149,45 +149,6 @@
             <td class="type">
             
                 
-<span class="param-type"><a href="global.html#TransferOptions">TransferOptions</a></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    {}
-                
-                </td>
-            
-
-            <td class="description last"><p>Transfer options</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>httpOptions</code></td>
-            
-
-            <td class="type">
-            
-                
 <span class="param-type">Object</span>
 
 
@@ -214,7 +175,7 @@
                 </td>
             
 
-            <td class="description last"><p>HTTP options</p></td>
+            <td class="description last"><p><a href="external-got.html"><code>got</code></a> options</p></td>
         </tr>
 
     
@@ -258,7 +219,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_Transfer.js.html">lib/Transfer.js</a>, <a href="lib_Transfer.js.html#line80">line 80</a>
+        <a href="lib_Transfer.js.html">lib/Transfer.js</a>, <a href="lib_Transfer.js.html#line71">line 71</a>
     </li></ul></dd>
     
 
@@ -356,7 +317,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_Transfer.js.html">lib/Transfer.js</a>, <a href="lib_Transfer.js.html#line98">line 98</a>
+        <a href="lib_Transfer.js.html">lib/Transfer.js</a>, <a href="lib_Transfer.js.html#line88">line 88</a>
     </li></ul></dd>
     
 
@@ -374,13 +335,13 @@
 
         
             
-<h4 class="name" id="httpOptions"><span class="type-signature"></span>httpOptions<span class="type-signature"> :Object</span></h4>
+<h4 class="name" id="options"><span class="type-signature"></span>options<span class="type-signature"> :Object</span></h4>
 
 
 
 
 <div class="description">
-    <p>An HTTP options object</p>
+    <p>A <a href="external-got.html"><code>got</code></a> options object</p>
 </div>
 
 
@@ -428,7 +389,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_Transfer.js.html">lib/Transfer.js</a>, <a href="lib_Transfer.js.html#line109">line 109</a>
+        <a href="lib_Transfer.js.html">lib/Transfer.js</a>, <a href="lib_Transfer.js.html#line94">line 94</a>
     </li></ul></dd>
     
 
@@ -438,81 +399,9 @@
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="https://nodejs.org/api/http.html#http_http_request_options_callback">Node HTTP Options</a></li>
+            <li><a href="https://github.com/sindresorhus/got#options">got options</a></li>
         </ul>
     </dd>
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="options"><span class="type-signature"></span>options<span class="type-signature"> :<a href="global.html#TransferOptions">TransferOptions</a></span></h4>
-
-
-
-
-<div class="description">
-    <p>The transfer options object</p>
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type"><a href="global.html#TransferOptions">TransferOptions</a></span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_Transfer.js.html">lib/Transfer.js</a>, <a href="lib_Transfer.js.html#line103">line 103</a>
-    </li></ul></dd>
-    
-
-    
-
     
 
     
@@ -693,7 +582,7 @@ header to the request</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_Transfer.js.html">lib/Transfer.js</a>, <a href="lib_Transfer.js.html#line133">line 133</a>
+        <a href="lib_Transfer.js.html">lib/Transfer.js</a>, <a href="lib_Transfer.js.html#line106">line 106</a>
     </li></ul></dd>
     
 
@@ -716,330 +605,6 @@ header to the request</p>
 
 
 
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="_encrypt"><span class="type-signature">(protected) </span>_encrypt<span class="signature">(inputStream)</span><span class="type-signature"> &rarr; {ReadStream}</span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Encrypt a file using <a href="global.html#ALGORITHM"><code>ALGORITHM</code></a> and base64</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>inputStream</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">ReadStream</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The file stream to encrypt</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_Transfer.js.html">lib/Transfer.js</a>, <a href="lib_Transfer.js.html#line221">line 221</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-    <dt class="tag-see">See:</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="https://nodejs.org/api/stream.html#stream_class_stream_readable">ReadStream</a></li>
-        </ul>
-    </dd>
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <ul>
-<li>The encrypted file stream</li>
-</ul>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">ReadStream</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="decrypt"><span class="type-signature"></span>decrypt<span class="signature">(destination)</span><span class="type-signature"> &rarr; {Promise.&lt;(WriteStream|<a href="TransferError.html">TransferError</a>)>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Decrypt a file encrypted with <a href="Transfer.html#_encrypt"><code>Transfer#_encrypt</code></a></p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>destination</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Destination path</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_Transfer.js.html">lib/Transfer.js</a>, <a href="lib_Transfer.js.html#line241">line 241</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-    <dt class="tag-see">See:</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="https://nodejs.org/api/stream.html#stream_class_stream_writable">WriteStream</a></li>
-        </ul>
-    </dd>
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>-
-A WriteStream of the decrypted file if resolved,
-a TransferError if rejected</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;(WriteStream|<a href="TransferError.html">TransferError</a>)></span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 
@@ -1148,7 +713,7 @@ a TransferError if rejected</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_Transfer.js.html">lib/Transfer.js</a>, <a href="lib_Transfer.js.html#line192">line 192</a>
+        <a href="lib_Transfer.js.html">lib/Transfer.js</a>, <a href="lib_Transfer.js.html#line164">line 164</a>
     </li></ul></dd>
     
 
@@ -1209,7 +774,7 @@ The path if resolved, a <a href="TransferError.html"><code>TransferError</code><
 
     
 
-    <h4 class="name" id="upload"><span class="type-signature"></span>upload<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="external-ProgressPromise.html">external:ProgressPromise</a>.&lt;(string|<a href="TransferError.html">TransferError</a>)>}</span></h4>
+    <h4 class="name" id="upload"><span class="type-signature"></span>upload<span class="signature">(filename<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="external-ProgressPromise.html">external:ProgressPromise</a>.&lt;(string|<a href="TransferError.html">TransferError</a>)>}</span></h4>
 
     
 
@@ -1225,6 +790,67 @@ The path if resolved, a <a href="TransferError.html"><code>TransferError</code><
 
 
 
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>filename</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>The name of the uploaded file</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -1260,7 +886,7 @@ The path if resolved, a <a href="TransferError.html"><code>TransferError</code><
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_Transfer.js.html">lib/Transfer.js</a>, <a href="lib_Transfer.js.html#line151">line 151</a>
+        <a href="lib_Transfer.js.html">lib/Transfer.js</a>, <a href="lib_Transfer.js.html#line125">line 125</a>
     </li></ul></dd>
     
 
@@ -1327,7 +953,7 @@ The link if resolved, a TransferError if rejected</p>
 <br class="clear">
 
 <footer>
-    Documentation generated at Thu Oct 04 2018 00:23:24 GMT+0300 (Eastern European Summer Time)
+    Documentation generated at Fri Oct 19 2018 16:23:49 GMT+0300 (Eastern European Summer Time)
 </footer>
 
 <script>prettyPrint();</script>

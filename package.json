@@ -1,6 +1,6 @@
 {
   "name": "transfer.js",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Fork of transfer-sh, a CLI tool for easy file sharing with https://transfer.sh",
   "main": "./index.js",
   "files": [
@@ -34,16 +34,12 @@
   },
   "homepage": "https://observeroftime.github.io/transfer.js",
   "dependencies": {
-    "b64": "^4.0.0",
-    "block-stream2": "^1.1.0",
     "cli-progress": "^2.0.0",
     "clipboardy": "^1.2.3",
-    "end-of-stream": "^1.4.1",
     "got": "^9.2.1",
     "mime-types": "^2.1.20",
     "minimist": "^1.2.0",
-    "progress-promise": "^0.0.6",
-    "through2": "^2.0.3"
+    "progress-promise": "^0.0.6"
   },
   "devDependencies": {
     "@reconbot/jsdoc-theme": "^1.0.3",

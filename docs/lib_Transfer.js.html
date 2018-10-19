@@ -30,7 +30,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Transfer.html">Transfer</a><ul class='methods'><li data-type='method'><a href="Transfer.html#_contentType">_contentType</a></li><li data-type='method'><a href="Transfer.html#_encrypt">_encrypt</a></li><li data-type='method'><a href="Transfer.html#decrypt">decrypt</a></li><li data-type='method'><a href="Transfer.html#download">download</a></li><li data-type='method'><a href="Transfer.html#upload">upload</a></li></ul></li><li><a href="TransferError.html">TransferError</a></li></ul><h3>Externals</h3><ul><li><a href="external-ProgressPromise.html">ProgressPromise</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ALGORITHM">ALGORITHM</a></li><li><a href="global.html#catchError">catchError</a></li><li><a href="global.html#DOMAIN">DOMAIN</a></li><li><a href="global.html#gotFile">gotFile</a></li><li><a href="global.html#HAS_ARGS">HAS_ARGS</a></li><li><a href="global.html#progressBar">progressBar</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Transfer.html">Transfer</a><ul class='methods'><li data-type='method'><a href="Transfer.html#_contentType">_contentType</a></li><li data-type='method'><a href="Transfer.html#download">download</a></li><li data-type='method'><a href="Transfer.html#upload">upload</a></li></ul></li><li><a href="TransferError.html">TransferError</a></li></ul><h3>Externals</h3><ul><li><a href="external-got.html">got</a></li><li><a href="external-ProgressPromise.html">ProgressPromise</a></li></ul><h3>Global</h3><ul><li><a href="global.html#catchError">catchError</a></li><li><a href="global.html#DOMAIN">DOMAIN</a></li><li><a href="global.html#gotFile">gotFile</a></li><li><a href="global.html#HAS_ARGS">HAS_ARGS</a></li><li><a href="global.html#progressBar">progressBar</a></li></ul>
 </nav>
 
 <div id="main">
@@ -47,16 +47,16 @@
         <article>
             <pre class="prettyprint source linenums"><code>const fs = require('fs');
 const path = require('path');
-const got = require('got');
-const crypt = require('crypto');
-const through2 = require('through2');
-const b64 = require('b64');
-const block = require('block-stream2');
-const eos = require('end-of-stream');
 
 const {EOL, tmpdir} = require('os');
 const {lookup: mime} = require('mime-types');
-const {PassThrough: PassThroughStream} = require('stream');
+
+/**
+ * @external got
+ * @desc A human-friendly and powerful HTTP request library
+ * @see {@link https://www.npmjs.com/package/got|got}
+ */
+const got = require('got');
 
 /**
  * @external ProgressPromise
@@ -74,15 +74,6 @@ const ProgressPromise = require('progress-promise');
  * @todo Make this configurable
  */
 const DOMAIN = 'https://transfer.sh';
-
-/**
- * The algorithm used for encryption
- *
- * @constant
- * @type {string}
- * @default aes-256-cbc
- */
-const ALGORITHM = 'aes-256-cbc';
 
 /**
  * Class representing a Transfer Error
@@ -133,39 +124,21 @@ class Transfer {
 
   /**
    * @param {string} fileInput - File path
-   * @param {TransferOptions} [options={}] - Transfer options
-   * @param {Object} [httpOptions={}] - HTTP options
+   * @param {Object} [options={}] - {@link external:got|got} options
    */
-  constructor(fileInput, options={}, httpOptions={}) {
+  constructor(fileInput, options={}) {
     /**
      * The input file path/URL
      *
      * @type {string}
      */
     this.fileInput = fileInput;
-    /** The transfer options object
-     *
-     * @type {TransferOptions}
-     */
-    this.options = options;
-    /** An HTTP options object
+    /** A {@link external:got|got} options object
      *
      * @type {Object}
-     * @see &lt;a href="https://nodejs.org/api/http.html#http_http_request_options_callback">Node HTTP Options&lt;/a>
+     * @see &lt;a href="https://github.com/sindresorhus/got#options">got options&lt;/a>
      */
-    this.httpOptions = httpOptions;
-  }
-
-  get sEncrypt() {
-    return this.options.password ?
-      crypt.createCipher(ALGORITHM, this.options.password) :
-      new PassThroughStream();
-  }
-
-  get sDecrypt() {
-    return this.options.password ?
-      crypt.createDecipher(ALGORITHM, this.options.password) :
-      new PassThroughStream();
+    this.options = options;
   }
 
   /**
@@ -192,27 +165,27 @@ class Transfer {
   /**
    * Upload a file to {@link DOMAIN}
    *
+   * @param {string} [filename] - The name of the uploaded file
    * @returns {external:ProgressPromise.&lt;string|TransferError>} -
    * The link if resolved, a TransferError if rejected
    */
-  upload() {
+  upload(filename) {
     const self = this;
-    const fileName = self.options.filename ||
-      path.basename(self.fileInput);
-    const fileURL = DOMAIN + '/' + fileName;
+    if(!filename) filename = path.basename(self.fileInput);
+    const fileURL = DOMAIN + '/' + filename;
     return new ProgressPromise((resolve, reject, progress) => {
       if(!self.fileInput) reject(new TransferError('Missing file input'));
       fs.stat(self.fileInput, (error, stats) => {
         if(error) return __catchError(error, self.fileInput, reject);
         const fileStream = fs.createReadStream(self.fileInput);
         if(self.options.password) {
-          self.httpOptions.body = self._encrypt(fileStream);
-          self._contentType(self.httpOptions);
+          self.options.body = self._encrypt(fileStream);
+          self._contentType(self.options);
         } else {
-          self.httpOptions.body = fileStream;
-          self._contentType(self.httpOptions, self.fileInput);
+          self.options.body = fileStream;
+          self._contentType(self.options, self.fileInput);
         }
-        got.put(fileURL, self.httpOptions)
+        got.put(fileURL, self.options)
           .on('uploadProgress', (p) => {
             // The uploaded size is roughly 1.016 times larger
             // than the actual size, likely due to the metadata
@@ -230,7 +203,6 @@ class Transfer {
   /**
    * Download a file from {@link DOMAIN}
    *
-   * @function
    * @param {string} destination - Destination path
    * @returns {external:ProgressPromise.&lt;string|TransferError>} -
    * The path if resolved, a {@link TransferError} if rejected
@@ -242,7 +214,7 @@ class Transfer {
     const filePath = destination || path.basename(url);
     return new ProgressPromise((resolve, reject, progress) => {
       if(!url) reject(new TransferError('Missing file URL'));
-      got.get(url, self.httpOptions)
+      got.get(url, self.options)
         .on('downloadProgress', p => {
           progress({
             current: p.transferred,
@@ -253,57 +225,6 @@ class Transfer {
           fs.writeFileSync(filePath, res.body);
           resolve(path.resolve(filePath));
         }).catch(reject);
-    });
-  }
-
-  /**
-   * Encrypt a file using {@link ALGORITHM} and base64
-   *
-   * @function
-   * @protected
-   * @param {ReadStream} inputStream - The file stream to encrypt
-   * @return {ReadStream} - The encrypted file stream
-   * @see &lt;a href="https://nodejs.org/api/stream.html#stream_class_stream_readable">ReadStream&lt;/a>
-   */
-  _encrypt(inputStream) {
-    const tmpfile = path.join(tmpdir(),
-      Math.random().toString(16).substr(2));
-    inputStream.pipe(this.sEncrypt)
-      .pipe(new b64.Encoder())
-      .pipe(block({size: 76, zeroPadding: false}))
-      .pipe(fs.createWriteStream(tmpfile));
-    return fs.createReadStream(tmpfile);
-  }
-
-  /**
-   * Decrypt a file encrypted with {@link Transfer#_encrypt}
-   *
-   * @function
-   * @param {string} destination - Destination path
-   * @returns {Promise.&lt;WriteStream|TransferError>} -
-   * A WriteStream of the decrypted file if resolved,
-   * a TransferError if rejected
-   * @see &lt;a href="https://nodejs.org/api/stream.html#stream_class_stream_writable">WriteStream&lt;/a>
-   */
-  decrypt(destination) {
-    const self = this;
-    return new Promise((resolve, reject) => {
-      if(!destination)
-        reject(new TransferError('Missing decrypted file destination'));
-      const wStream = fs.createWriteStream(destination);
-      eos(wStream, (err) => {
-        if(err) return reject(err);
-        resolve(this);
-      });
-      try {
-        // Start decryption
-        fs.createReadStream(self.fileInput)
-          .pipe(new b64.Decoder())
-          .pipe(self.sDecrypt)
-          .pipe(wStream);
-      } catch(error) {
-        return __catchError(error, self.fileInput, reject);
-      }
     });
   }
 }
@@ -322,7 +243,7 @@ module.exports = {Transfer, TransferError};
 <br class="clear">
 
 <footer>
-    Documentation generated at Thu Oct 04 2018 00:23:24 GMT+0300 (Eastern European Summer Time)
+    Documentation generated at Fri Oct 19 2018 16:23:49 GMT+0300 (Eastern European Summer Time)
 </footer>
 
 <script>prettyPrint();</script>

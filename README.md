@@ -36,8 +36,6 @@ Will return a link to the resource and copy it to your clipboard.
 |   `-n, --file-name`   |                Name to use for the upload.                |
 |     `-c, --copy`      |        Copy the file URL or path to the clipboard.        |
 |  `-N, --no-progress`  |               Don't show the progress bar.                |
-|   `-p, --password`    |            Password used to encrypt the file.             |
-|    `-d, --decrypt`    |         Decrypt the file (requires `--password`).         |
 |    `-o, --output`     |     Output path of the decrypted or downloaded file.      |
 
 ## Module usage
@@ -47,34 +45,18 @@ Will return a link to the resource and copy it to your clipboard.
 ```javascript
 const Transfer = require('transfer.js');
 
-// Encrypt and upload
-new Transfer('./Hello.txt', {password: 's3cr3t', filename: 'Hello.enc'})
-  .upload().progress(function(prog) {
-    console.log(prog.current / prog.total * 100).toFixed(1) + '%');
-  }).then(function(link) { console.log(link) })
-  .catch(function(err) { console.error(err) });
+// Upload
+new Transfer('./Hello.txt')
+  .upload().progress((prog) => {
+    console.log((prog.current / prog.total * 100).toFixed(1) + '%');
+  }).then(console.log).catch(console.error);
 
 // Download
-new Transfer('https://transfer.sh/4bcD3/Hello.enc')
-  .download().progress(function(prog) {
-    console.log(prog.current / prog.total * 100).toFixed(1) + '%');
-  }).then(function(path) { console.log(path) })
-  .catch(function(err) { console.error(err) });
-
-// Decrypt
-new Transfer('./Hello.enc', {password: 's3cr3t'})
-  .decrypt('Output.md')
-  .then(function(wStream) { console.log('Decrypted!') })
-  .catch(function(err) { console.error(err) });
-
+new Transfer('https://transfer.sh/4bcD3/Hello.txt')
+  .download().progress((prog) => {
+    console.log((prog.current / prog.total * 100).toFixed(1) + '%');
+  }).then(console.log).catch(console.error);
 ```
-
-### Options
-
-|   Option   |                         Description                          |
-| :--------: | :----------------------------------------------------------: |
-| `filename` | If provided, the upload will use the provided name.<br>Otherwise, it will use the original name. |
-| `password` | If provided, the file will be encrypted with `aes-256-cbc`<br>and encoded as base64 before the upload. |
 
 ## Documentation
 
@@ -82,38 +64,32 @@ The documentation is available [here](https://observeroftime.github.io/transfer.
 
 ## Dependencies [![Dependencies](https://img.shields.io/david/ObserverOfTime/transfer.js.svg)](https://david-dm.org/ObserverOfTime/transfer.js)
 
-- [b64](https://ghub.io/b64): Base64 streaming encoder and decoder
-- [block-stream2](https://ghub.io/block-stream2): transform input into equally-sized blocks of output
 - [cli-progress](https://ghub.io/cli-progress): Easy to use Progress-Bar for Command-Line/Terminal Applications
 - [clipboardy](https://ghub.io/clipboardy): Access the system clipboard (copy/paste)
-- [end-of-stream](https://ghub.io/end-of-stream): Call a callback when a readable/writable/duplex stream has completed or failed.
 - [got](https://ghub.io/got): Simplified HTTP requests
 - [mime-types](https://ghub.io/mime-types): The ultimate javascript content-type utility.
 - [minimist](https://ghub.io/minimist): parse argument options
 - [progress-promise](https://ghub.io/progress-promise): Promise subclass with mechanism to report progress before resolving
-- [through2](https://ghub.io/through2): A tiny wrapper around Node streams2 Transform to avoid explicit subclassing noise
 
 ## Dev Dependencies [![Dev Dependencies](https://img.shields.io/david/dev/ObserverOfTime/transfer.js.svg)](https://david-dm.org/ObserverOfTime/transfer.js?type=dev)
 
+- [@reconbot/jsdoc-theme](https://ghub.io/@reconbot/jsdoc-theme): A JSDoc Theme / Template
 - [chai](https://ghub.io/chai): BDD/TDD assertion library for node.js and the browser. Test framework agnostic.
 - [chai-as-promised](https://ghub.io/chai-as-promised): Extends Chai with assertions about promises.
 - [codecov](https://ghub.io/codecov): Uploading report to Codecov: https://codecov.io
-- [esdoc](https://ghub.io/esdoc): Good Documentation Generator For JavaScript
-- [esdoc-accessor-plugin](https://ghub.io/esdoc-accessor-plugin): A accessor plugin for ESDoc
-- [esdoc-integrate-test-plugin](https://ghub.io/esdoc-integrate-test-plugin): A integrate test plugin for ESDoc
-- [esdoc-publish-html-plugin](https://ghub.io/esdoc-publish-html-plugin): A publish HTML plugin for ESDoc
-- [esdoc-undocumented-identifier-plugin](https://ghub.io/esdoc-undocumented-identifier-plugin): A undocumented identifier plugin for ESDoc
 - [eslint](https://ghub.io/eslint): An AST-based pattern checker for JavaScript.
+- [jsdoc](https://ghub.io/jsdoc): An API documentation generator for JavaScript.
 - [mocha](https://ghub.io/mocha): simple, flexible, fun test framework
 - [nyc](https://ghub.io/nyc): the Istanbul command line interface
 
+
 ## TODO
 
-- Support decrypting after download
 - Add more options to the executable
 - Use a better argument parser
 - Allow custom transfer domains
 - Add more download tests
+- Add executable tests
 
 ## Credits
 

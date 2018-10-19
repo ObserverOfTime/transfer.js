@@ -30,7 +30,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Transfer.html">Transfer</a><ul class='methods'><li data-type='method'><a href="Transfer.html#_contentType">_contentType</a></li><li data-type='method'><a href="Transfer.html#_encrypt">_encrypt</a></li><li data-type='method'><a href="Transfer.html#decrypt">decrypt</a></li><li data-type='method'><a href="Transfer.html#download">download</a></li><li data-type='method'><a href="Transfer.html#upload">upload</a></li></ul></li><li><a href="TransferError.html">TransferError</a></li></ul><h3>Externals</h3><ul><li><a href="external-ProgressPromise.html">ProgressPromise</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ALGORITHM">ALGORITHM</a></li><li><a href="global.html#catchError">catchError</a></li><li><a href="global.html#DOMAIN">DOMAIN</a></li><li><a href="global.html#gotFile">gotFile</a></li><li><a href="global.html#HAS_ARGS">HAS_ARGS</a></li><li><a href="global.html#progressBar">progressBar</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Transfer.html">Transfer</a><ul class='methods'><li data-type='method'><a href="Transfer.html#_contentType">_contentType</a></li><li data-type='method'><a href="Transfer.html#download">download</a></li><li data-type='method'><a href="Transfer.html#upload">upload</a></li></ul></li><li><a href="TransferError.html">TransferError</a></li></ul><h3>Externals</h3><ul><li><a href="external-got.html">got</a></li><li><a href="external-ProgressPromise.html">ProgressPromise</a></li></ul><h3>Global</h3><ul><li><a href="global.html#catchError">catchError</a></li><li><a href="global.html#DOMAIN">DOMAIN</a></li><li><a href="global.html#gotFile">gotFile</a></li><li><a href="global.html#HAS_ARGS">HAS_ARGS</a></li><li><a href="global.html#progressBar">progressBar</a></li></ul>
 </nav>
 
 <div id="main">
@@ -114,83 +114,6 @@
 
     
         <h3 class="subsection-title">Members</h3>
-
-        
-            
-<h4 class="name" id="ALGORITHM"><span class="type-signature">(constant) </span>ALGORITHM<span class="type-signature"> :string</span></h4>
-
-
-
-
-<div class="description">
-    <p>The algorithm used for encryption</p>
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">string</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-default">Default Value:</dt>
-    <dd class="tag-default"><ul class="dummy">
-            <li>aes-256-cbc</li>
-        </ul></dd>
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_Transfer.js.html">lib/Transfer.js</a>, <a href="lib_Transfer.js.html#line38">line 38</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
 
         
             
@@ -332,7 +255,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="bin_transfer.js.html">bin/transfer.js</a>, <a href="bin_transfer.js.html#line135">line 135</a>
+        <a href="bin_transfer.js.html">bin/transfer.js</a>, <a href="bin_transfer.js.html#line125">line 125</a>
     </li></ul></dd>
     
 
@@ -359,7 +282,7 @@
 
     
 
-    <h4 class="name" id="catchError"><span class="type-signature"></span>catchError<span class="signature">(err)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="catchError"><span class="type-signature">(protected) </span>catchError<span class="signature">(err)</span><span class="type-signature"></span></h4>
 
     
 
@@ -459,7 +382,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="bin_transfer.js.html">bin/transfer.js</a>, <a href="bin_transfer.js.html#line80">line 80</a>
+        <a href="bin_transfer.js.html">bin/transfer.js</a>, <a href="bin_transfer.js.html#line70">line 70</a>
     </li></ul></dd>
     
 
@@ -490,7 +413,7 @@
 
     
 
-    <h4 class="name" id="gotFile"><span class="type-signature"></span>gotFile<span class="signature">(file)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="gotFile"><span class="type-signature">(protected) </span>gotFile<span class="signature">(file)</span><span class="type-signature"></span></h4>
 
     
 
@@ -590,7 +513,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="bin_transfer.js.html">bin/transfer.js</a>, <a href="bin_transfer.js.html#line94">line 94</a>
+        <a href="bin_transfer.js.html">bin/transfer.js</a>, <a href="bin_transfer.js.html#line84">line 84</a>
     </li></ul></dd>
     
 
@@ -621,7 +544,7 @@
 
     
 
-    <h4 class="name" id="progressBar"><span class="type-signature"></span>progressBar<span class="signature">(prog)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="progressBar"><span class="type-signature">(protected) </span>progressBar<span class="signature">(prog)</span><span class="type-signature"></span></h4>
 
     
 
@@ -721,7 +644,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="bin_transfer.js.html">bin/transfer.js</a>, <a href="bin_transfer.js.html#line113">line 113</a>
+        <a href="bin_transfer.js.html">bin/transfer.js</a>, <a href="bin_transfer.js.html#line103">line 103</a>
     </li></ul></dd>
     
 
@@ -898,7 +821,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_Transfer.js.html">lib/Transfer.js</a>, <a href="lib_Transfer.js.html#line81">line 81</a>
+        <a href="lib_Transfer.js.html">lib/Transfer.js</a>, <a href="lib_Transfer.js.html#line72">line 72</a>
     </li></ul></dd>
     
 
@@ -930,7 +853,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated at Thu Oct 04 2018 00:23:24 GMT+0300 (Eastern European Summer Time)
+    Documentation generated at Fri Oct 19 2018 16:23:49 GMT+0300 (Eastern European Summer Time)
 </footer>
 
 <script>prettyPrint();</script>

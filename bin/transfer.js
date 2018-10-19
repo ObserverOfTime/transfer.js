@@ -9,8 +9,6 @@ const argv = require('minimist')(process.argv.slice(2), {
     'max-days',
     'max-downloads',
     'output',
-    'decrypt',
-    'password',
     'file-name',
     'download'
   ],
@@ -20,8 +18,6 @@ const argv = require('minimist')(process.argv.slice(2), {
     'max-days': 'm',
     'max-downloads': 'M',
     'output': 'o',
-    'decrypt': 'd',
-    'password': 'p',
     'copy': 'c',
     'file-name': 'n',
     'no-progress': 'N',
@@ -52,8 +48,6 @@ const help = `\
     -M, --max-downloads [NUMBER]  Maximum number of downloads.
     -D, --download [URL]          Download file from URL.
     -n, --file-name [NAME]        Name to use for the upload.
-    -p, --password [PASS]         Password used to encrypt the file.
-    -d, --decrypt [FILE]          Decrypt the file (requires --password).
     -o, --output [PATH]           Decrypted/downloaded file output path.
     -c, --copy                    Copy the file URL/path to the clipboard.
     -N, --no-progress             Don't show the progress bar.
@@ -63,18 +57,14 @@ const help = `\
   \x1b[4mExamples\x1b[0m\n
     Upload file for 1 day with a custom name:
       $ transfer-js file.txt -n file.tmp -m 1
-    Encrypt and upload file:
-      $ transfer-js file.txt -p p4ssw0rd
     Download file:
       $ transfer-js -D https://transfer.sh/I2ea5/file.txt
-    Decrypt file:
-      $ transfer-js -d file.enc -p p4ssw0rd
 `;
 
 /**
  * Error handler
  *
- * @function
+ * @protected
  * @param {Error} err - The caught error
  */
 function catchError(err) {
@@ -88,7 +78,7 @@ function catchError(err) {
 /**
  * File handler
  *
- * @function
+ * @protected
  * @param {string} file - The URL or path of the file
  */
 function gotFile(file) {
@@ -107,7 +97,7 @@ function gotFile(file) {
 /**
  * Progress handler
  *
- * @function
+ * @protected
  * @param {Object} prog - Progress details
  */
 function progressBar(prog) {
@@ -144,39 +134,25 @@ if(argv.h) {
   process.exit(0);
 }
 
-const opts = {
-  password: argv.p,
-  filename: argv.n
-};
-const httpOpts = {
+const options = {
   headers: {
     'User-Agent': `${pkg}/${version}`
   },
   throwHttpErrors: true
 };
-if(argv.m) httpOpts.headers['Max-Days'] = argv.m;
-if(argv.M) httpOpts.headers['Max-Downloads'] = argv.M;
+if(argv.m) options.headers['Max-Days'] = argv.m;
+if(argv.M) options.headers['Max-Downloads'] = argv.M;
 
 if(argv.D) { // Download
-  new Transfer(argv.D, opts, httpOpts)
+  new Transfer(argv.D, options)
     .download(argv.o)
     .progress(progressBar)
     .then(gotFile)
     .catch(catchError);
-} else if(argv.d) { // Decrypt
-  if(!argv.p) catchError(new Error('No password provided'));
-  const ext = require('path').extname(argv.d);
-  let output = (!ext) ? `${argv.d}-decrypted` :
-    `${argv.d.replace(ext, '')}-decrypted${ext}`;
-  if(argv.o) output = argv.o;
-  new Transfer(argv.d, opts, httpOpts)
-    .decrypt(output)
-    .then(() => console.log('Successfully decrypted in', output))
-    .catch(catchError);
 } else { // Upload
   for(const i in argv._) {
-    new Transfer(argv._[i], opts, httpOpts)
-      .upload()
+    new Transfer(argv._[i], options)
+      .upload(argv.n)
       .progress(progressBar)
       .then(gotFile)
       .catch(catchError);
