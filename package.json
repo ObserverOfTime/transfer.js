@@ -1,6 +1,6 @@
 {
   "name": "transfer.js",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Fork of transfer-sh, a CLI tool for easy file sharing with https://transfer.sh",
   "main": "./index.js",
   "files": [
@@ -15,7 +15,7 @@
     "cover": "nyc report -r text-lcov | codecov",
     "docs": "nyc report -r html; jsdoc -c .jsdoc.json",
     "lint": "eslint bin/*.js lib/*.js tests/*.js",
-    "test": "nyc -r text-summary mocha -t 5000 tests/test.js --exit"
+    "test": "nyc -r text-summary mocha -t 30000 tests/test.js --exit"
   },
   "repository": "git+https://github.com/ObserverOfTime/transfer.js.git",
   "keywords": [
@@ -50,6 +50,9 @@
     "jsdoc": "^3.5.5",
     "mocha": "^5.2.0",
     "nyc": "^13.0.1"
+  },
+  "resolutions": {
+    "flat-cache": "^2.0.1"
   },
   "nyc": {
     "check-coverage": true,

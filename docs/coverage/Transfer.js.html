@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">85.45% </span>
+        <span class="strong">85.19% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>47/55</span>
+        <span class='fraction'>46/54</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">64% </span>
@@ -35,9 +35,9 @@
         <span class='fraction'>13/13</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">86.27% </span>
+        <span class="strong">86% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>44/51</span>
+        <span class='fraction'>43/50</span>
       </div>
     </div>
     <p class="quiet">
@@ -234,7 +234,6 @@
 <a name='L186'></a><a href='#L186'>186</a>
 <a name='L187'></a><a href='#L187'>187</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -418,6 +417,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const fs = require('fs');
 const path = require('path');
 &nbsp;
@@ -470,17 +470,17 @@ function __catchError(error, file, reject) {
   let msg;
   const filePath = path.resolve(file);
   switch(error.code) {
-    case 'EACCESS':
-<span class="branch-0 cbranch-no" title="branch not covered" >      msg = 'Cannot read file: ' + filePath;</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'EACCESS':</span>
+<span class="cstat-no" title="statement not covered" >      msg = 'Cannot read file: ' + filePath;</span>
 <span class="cstat-no" title="statement not covered" >      reject(new TransferError(msg));</span>
 <span class="cstat-no" title="statement not covered" >      break;</span>
-    ca<span class="cstat-no" title="statement not covered" >se 'ENO</span>ENT':
+    case 'ENOENT':
       msg = 'File not found: ' + filePath;
       reject(new TransferError(msg));
       break;
-    default:
-<span class="branch-2 cbranch-no" title="branch not covered" >      reject(error);</span>
-  }<span class="cstat-no" title="statement not covered" ></span>
+<span class="branch-2 cbranch-no" title="branch not covered" >    default:</span>
+<span class="cstat-no" title="statement not covered" >      reject(error);</span>
+  }
 }
 &nbsp;
 /**
@@ -499,8 +499,8 @@ class Transfer {
    * @param {string} fileInput - File path
    * @param {Object} [options={}] - {@link external:got|got} options
    */
-  constructor(fileInput, options={}) {
-    /**<span class="branch-0 cbranch-no" title="branch not covered" ></span>
+  constructor(fileInput, options=<span class="branch-0 cbranch-no" title="branch not covered" >{})</span> {
+    /**
      * The input file path/URL
      *
      * @type {string}
@@ -523,14 +523,14 @@ class Transfer {
    * @param {Object} options - An HTTP options object
    * @param {string} [file=null] - The input file
    */
-  _contentType(options, file=null) {
-    if(!options.headers['Cont<span class="branch-0 cbranch-no" title="branch not covered" >ent-T</span>ype']) {
-      if(file !== null) {
-      <span class="missing-if-branch" title="else path not taken" >E</span>  options.headers['Content-Type'] =
-          mime(path.extname(file)) || 'text/plain';
-      } else {<span class="branch-1 cbranch-no" title="branch not covered" ></span>
+  _contentType(options, file=<span class="branch-0 cbranch-no" title="branch not covered" >null)</span> {
+    if(!options.headers['Content-Type']) {
+      <span class="missing-if-branch" title="else path not taken" >E</span>if(file !== null) {
         options.headers['Content-Type'] =
-<span class="cstat-no" title="statement not covered" >          'application/octet-stream';</span>
+          mime(path.extname(file)) || <span class="branch-1 cbranch-no" title="branch not covered" >'text/plain';</span>
+      } else {
+<span class="cstat-no" title="statement not covered" >        options.headers['Content-Type'] =</span>
+          'application/octet-stream';
       }
     }
   }
@@ -551,10 +551,10 @@ class Transfer {
       fs.stat(self.fileInput, (error, stats) =&gt; {
         if(error) return __catchError(error, self.fileInput, reject);
         const fileStream = fs.createReadStream(self.fileInput);
-        if(self.options.password) {
-        <span class="missing-if-branch" title="if path not taken" >I</span>  self.options.body = self._encrypt(fileStream);
+        <span class="missing-if-branch" title="if path not taken" >I</span>if(self.options.password) {
+<span class="cstat-no" title="statement not covered" >          self.options.body = self._encrypt(fileStream);</span>
 <span class="cstat-no" title="statement not covered" >          self._contentType(self.options);</span>
-        } <span class="cstat-no" title="statement not covered" >else {</span>
+        } else {
           self.options.body = fileStream;
           self._contentType(self.options, self.fileInput);
         }
@@ -584,10 +584,10 @@ class Transfer {
   download(destination) {
     const self = this;
     const url = self.fileInput;
-    const filePath = destination || path.basename(url);
-    return new ProgressPromise((reso<span class="branch-1 cbranch-no" title="branch not covered" >lve, reject, progre</span>ss) =&gt; {
-      if(!url) reject(new TransferError('Missing file URL'));
-      <span class="missing-if-branch" title="if path not taken" >I</span>got.get(u<span class="cstat-no" title="statement not covered" >rl, self.options)</span>
+    const filePath = destination || <span class="branch-1 cbranch-no" title="branch not covered" >path.basename(url);</span>
+    return new ProgressPromise((resolve, reject, progress) =&gt; {
+      <span class="missing-if-branch" title="if path not taken" >I</span>if(!url) <span class="cstat-no" title="statement not covered" >reject(new TransferError('Missing file URL'));</span>
+      got.get(url, self.options)
         .on('downloadProgress', p =&gt; {
           progress({
             current: p.transferred,
@@ -610,7 +610,7 @@ module.exports = {Transfer, TransferError};
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Oct 19 2018 16:23:48 GMT+0300 (Eastern European Summer Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Feb 01 2019 17:44:04 GMT+0200 (Eastern European Standard Time)
 </div>
 </div>
 <script src="prettify.js"></script>

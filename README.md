@@ -36,7 +36,7 @@ Will return a link to the resource and copy it to your clipboard.
 |   `-n, --file-name`   |                Name to use for the upload.                |
 |     `-c, --copy`      |        Copy the file URL or path to the clipboard.        |
 |  `-N, --no-progress`  |               Don't show the progress bar.                |
-|    `-o, --output`     |     Output path of the decrypted or downloaded file.      |
+|    `-o, --output`     |            Output path of the downloaded file.            |
 
 ## Module usage
 
