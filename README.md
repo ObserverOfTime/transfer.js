@@ -1,9 +1,8 @@
 # transfer.js
 
-[![Version](https://img.shields.io/npm/v/transfer.js.svg)](https://www.npmjs.com/package/transfer.js)
-[![Build Status](https://img.shields.io/travis/ObserverOfTime/transfer.js.svg)](https://travis-ci.org/ObserverOfTime/transfer.js)
-[![License](https://img.shields.io/badge/license-ISC-blue.svg)](./LICENSE)
-[![Coverage](https://img.shields.io/codecov/c/github/ObserverOfTime/transfer.js.svg)](https://codecov.io/gh/ObserverOfTime/transfer.js)
+[![Version](https://img.shields.io/github/v/tag/ObserverOfTime/transfer.js?label=Version&logo=npm)](https://github.com/ObserverOfTime/transfer.js/packages)
+[![Build](https://github.com/ObserverOfTime/transfer.js/workflows/Build/badge.svg)](https://github.com/ObserverOfTime/transfer.js/actions)
+[![Coverage](https://img.shields.io/codecov/c/gh/ObserverOfTime/transfer.js?label=Coverage&logo=codecov)](https://codecov.io/gh/ObserverOfTime/transfer.js)
 
 Node.js CLI tool for easy file sharing with [transfer.sh](https://transfer.sh)
 
@@ -82,16 +81,19 @@ The documentation is available [here](https://observeroftime.github.io/transfer.
 - [mocha](https://ghub.io/mocha): simple, flexible, fun test framework
 - [nyc](https://ghub.io/nyc): the Istanbul command line interface
 
-
 ## TODO
 
-- Add more options to the executable
-- Use a better argument parser
-- Allow custom transfer domains
-- Add more download tests
-- Add executable tests
+- [ ] Add more options to the executable
+- [ ] Use a better argument parser
+- [ ] Allow custom transfer domains
+- [ ] Improve coverage
+- [ ] Add more download tests
+- [ ] Add executable tests
 
 ## Credits
 
 Based on [transfer-sh](https://ghub.io/transfer-sh) by roccomuso.
 
+## License
+
+Licensed under the [ISC](./LICENSE) license.

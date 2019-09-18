@@ -54,18 +54,21 @@
 
 
     <section class="readme">
-        <article><h1 id="transfer-js">transfer.js</h1>
-<p><a href="https://www.npmjs.com/package/transfer.js"><img src="https://img.shields.io/npm/v/transfer.js.svg" alt="Version"></a>
-<a href="https://travis-ci.org/ObserverOfTime/transfer.js"><img src="https://img.shields.io/travis/ObserverOfTime/transfer.js.svg" alt="Build Status"></a>
-<a href="./LICENSE"><img src="https://img.shields.io/badge/license-ISC-blue.svg" alt="License"></a>
-<a href="https://codecov.io/gh/ObserverOfTime/transfer.js"><img src="https://img.shields.io/codecov/c/github/ObserverOfTime/transfer.js.svg" alt="Coverage"></a></p>
+        <article><h1 id="transfer.js">transfer.js</h1>
+<p><a href="https://github.com/ObserverOfTime/transfer.js/packages"><img src="https://img.shields.io/github/v/tag/ObserverOfTime/transfer.js?label=Version&amp;logo=npm" alt="Version"></a>
+<a href="https://github.com/ObserverOfTime/transfer.js/actions"><img src="https://github.com/ObserverOfTime/transfer.js/workflows/Build/badge.svg" alt="Build"></a>
+<a href="https://codecov.io/gh/ObserverOfTime/transfer.js"><img src="https://img.shields.io/codecov/c/gh/ObserverOfTime/transfer.js?label=Coverage&amp;logo=codecov" alt="Coverage"></a></p>
 <p>Node.js CLI tool for easy file sharing with <a href="https://transfer.sh">transfer.sh</a></p>
 <h2 id="install">Install</h2>
 <p>The easiest way to get <strong>transfer.js</strong> is with npm or yarn:</p>
 <pre class="prettyprint source lang-sh"><code>$ npm install -g transfer.js
-$ yarn global add transfer.js</code></pre><h2 id="cli-usage">CLI Usage</h2>
+$ yarn global add transfer.js
+</code></pre>
+<h2 id="cli-usage">CLI Usage</h2>
 <h3 id="example">Example</h3>
-<pre class="prettyprint source lang-sh"><code>$ transfer-js hello.txt --copy</code></pre><p>Will return a link to the resource and copy it to your clipboard.</p>
+<pre class="prettyprint source lang-sh"><code>$ transfer-js hello.txt --copy
+</code></pre>
+<p>Will return a link to the resource and copy it to your clipboard.</p>
 <h3 id="options">Options</h3>
 <table>
 <thead>
@@ -106,7 +109,7 @@ $ yarn global add transfer.js</code></pre><h2 id="cli-usage">CLI Usage</h2>
 </tbody>
 </table>
 <h2 id="module-usage">Module usage</h2>
-<h3 id="example">Example</h3>
+<h3 id="example-2">Example</h3>
 <pre class="prettyprint source lang-javascript"><code>const Transfer = require('transfer.js');
 
 // Upload
@@ -119,9 +122,11 @@ new Transfer('./Hello.txt')
 new Transfer('https://transfer.sh/4bcD3/Hello.txt')
   .download().progress((prog) => {
     console.log((prog.current / prog.total * 100).toFixed(1) + '%');
-  }).then(console.log).catch(console.error);</code></pre><h2 id="documentation">Documentation</h2>
+  }).then(console.log).catch(console.error);
+</code></pre>
+<h2 id="documentation">Documentation</h2>
 <p>The documentation is available <a href="https://observeroftime.github.io/transfer.js">here</a>.</p>
-<h2 id="dependencies-dependencies">Dependencies <a href="https://david-dm.org/ObserverOfTime/transfer.js"><img src="https://img.shields.io/david/ObserverOfTime/transfer.js.svg" alt="Dependencies"></a></h2>
+<h2 id="dependencies">Dependencies <a href="https://david-dm.org/ObserverOfTime/transfer.js"><img src="https://img.shields.io/david/ObserverOfTime/transfer.js.svg" alt="Dependencies"></a></h2>
 <ul>
 <li><a href="https://ghub.io/cli-progress">cli-progress</a>: Easy to use Progress-Bar for Command-Line/Terminal Applications</li>
 <li><a href="https://ghub.io/clipboardy">clipboardy</a>: Access the system clipboard (copy/paste)</li>
@@ -130,7 +135,7 @@ new Transfer('https://transfer.sh/4bcD3/Hello.txt')
 <li><a href="https://ghub.io/minimist">minimist</a>: parse argument options</li>
 <li><a href="https://ghub.io/progress-promise">progress-promise</a>: Promise subclass with mechanism to report progress before resolving</li>
 </ul>
-<h2 id="dev-dependencies-dev-dependencies">Dev Dependencies <a href="https://david-dm.org/ObserverOfTime/transfer.js?type=dev"><img src="https://img.shields.io/david/dev/ObserverOfTime/transfer.js.svg" alt="Dev Dependencies"></a></h2>
+<h2 id="dev-dependencies">Dev Dependencies <a href="https://david-dm.org/ObserverOfTime/transfer.js?type=dev"><img src="https://img.shields.io/david/dev/ObserverOfTime/transfer.js.svg" alt="Dev Dependencies"></a></h2>
 <ul>
 <li><a href="https://ghub.io/@reconbot/jsdoc-theme">@reconbot/jsdoc-theme</a>: A JSDoc Theme / Template</li>
 <li><a href="https://ghub.io/chai">chai</a>: BDD/TDD assertion library for node.js and the browser. Test framework agnostic.</li>
@@ -143,14 +148,17 @@ new Transfer('https://transfer.sh/4bcD3/Hello.txt')
 </ul>
 <h2 id="todo">TODO</h2>
 <ul>
-<li>Add more options to the executable</li>
-<li>Use a better argument parser</li>
-<li>Allow custom transfer domains</li>
-<li>Add more download tests</li>
-<li>Add executable tests</li>
+<li>[ ] Add more options to the executable</li>
+<li>[ ] Use a better argument parser</li>
+<li>[ ] Allow custom transfer domains</li>
+<li>[ ] Improve coverage</li>
+<li>[ ] Add more download tests</li>
+<li>[ ] Add executable tests</li>
 </ul>
 <h2 id="credits">Credits</h2>
-<p>Based on <a href="https://ghub.io/transfer-sh">transfer-sh</a> by roccomuso.</p></article>
+<p>Based on <a href="https://ghub.io/transfer-sh">transfer-sh</a> by roccomuso.</p>
+<h2 id="license">License</h2>
+<p>Licensed under the <a href="./LICENSE">ISC</a> license.</p></article>
     </section>
 
 
@@ -163,7 +171,7 @@ new Transfer('https://transfer.sh/4bcD3/Hello.txt')
 <br class="clear">
 
 <footer>
-    Documentation generated at Fri Feb 01 2019 17:44:05 GMT+0200 (Eastern European Standard Time)
+    Documentation generated at Wed Sep 18 2019 19:14:03 GMT+0300 (Eastern European Summer Time)
 </footer>
 
 <script>prettyPrint();</script>

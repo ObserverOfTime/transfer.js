@@ -12,10 +12,10 @@
     "transfer-js": "./bin/transfer.js"
   },
   "scripts": {
-    "cover": "nyc report -r text-lcov | codecov",
-    "docs": "nyc report -r html; jsdoc -c .jsdoc.json",
+    "cover": "nyc report -r text-lcov | codecov -l --disable=gcov",
+    "docs": "nyc report -r html && jsdoc -c .jsdoc.json",
     "lint": "eslint bin/*.js lib/*.js tests/*.js",
-    "test": "nyc -r text-summary mocha -t 30000 tests/test.js --exit"
+    "test": "nyc -r text-summary mocha -t 0 tests/test.js --exit"
   },
   "repository": "git+https://github.com/ObserverOfTime/transfer.js.git",
   "keywords": [
@@ -33,28 +33,26 @@
     "url": "https://github.com/ObserverOfTime/transfer.js/issues"
   },
   "homepage": "https://observeroftime.github.io/transfer.js",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/@ObserverOfTime"
+  },
   "dependencies": {
-    "cli-progress": "^2.0.0",
-    "clipboardy": "^1.2.3",
-    "got": "^9.2.1",
+    "cli-progress": "^3.1.0",
+    "clipboardy": "^2.1.0",
+    "got": "^9.6.0",
     "mime-types": "^2.1.24",
     "minimist": "^1.2.0",
     "progress-promise": "^0.0.6"
   },
   "devDependencies": {
     "@reconbot/jsdoc-theme": "^1.0.3",
-    "chai": "^4.1.2",
+    "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "codecov": "^3.5.0",
-    "eslint": "^5.16.0",
-    "jsdoc": "^3.6.2",
-    "mocha": "^5.2.0",
-    "nyc": "^13.3.0"
-  },
-  "resolutions": {
-    "flat-cache": "^2.0.1",
-    "handlebars": "^4.1.0",
-    "js-yaml": "^3.13.1"
+    "eslint": "^6.4.0",
+    "jsdoc": "^3.6.3",
+    "mocha": "^6.2.0",
+    "nyc": "^14.1.0"
   },
   "nyc": {
     "check-coverage": true,

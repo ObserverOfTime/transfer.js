@@ -2,4 +2,3 @@
 
 docs/ linguist-documentation -diff
 tests/test.txt linguist-generated=true
-
