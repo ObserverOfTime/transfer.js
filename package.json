@@ -2,14 +2,19 @@
   "name": "transfer.js",
   "version": "0.5.2",
   "description": "Fork of transfer-sh, a CLI tool for easy file sharing with https://transfer.sh",
-  "main": "./index.js",
+  "main": "index.js",
   "files": [
     "bin/",
     "lib/"
   ],
+  "directories": {
+    "lib": "lib",
+    "bin": "bin",
+    "test": "tests"
+  },
   "preferGlobal": true,
   "bin": {
-    "transfer-js": "./bin/transfer.js"
+    "transfer-js": "bin/transfer.js"
   },
   "scripts": {
     "cover": "nyc report -r text-lcov | codecov -l --disable=gcov",
@@ -17,27 +22,25 @@
     "lint": "eslint bin/*.js lib/*.js tests/*.js",
     "test": "nyc -r text-summary mocha -t 0 tests/test.js --exit"
   },
-  "repository": "git+https://github.com/ObserverOfTime/transfer.js.git",
   "keywords": [
     "transfer",
     "transfer.sh",
-    "wrapper",
     "cli",
     "upload",
     "file",
     "sharing"
   ],
-  "author": "ObserverOfTime <chronobserver@disroot.org>",
+  "repository": "github:ObserverOfTime/transfer.js",
+  "author": "ObserverOfTime <chronobserver@disroot.org> (https://observeroftime.github.io)",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ObserverOfTime/transfer.js/issues"
-  },
+  "bugs": "https://github.com/ObserverOfTime/transfer.js/issues",
   "homepage": "https://observeroftime.github.io/transfer.js",
   "publishConfig": {
+    "access": "public",
     "registry": "https://npm.pkg.github.com/@ObserverOfTime"
   },
   "dependencies": {
-    "cli-progress": "^3.1.0",
+    "cli-progress": "^3.3.1",
     "clipboardy": "^2.1.0",
     "got": "^9.6.0",
     "mime-types": "^2.1.24",
@@ -48,10 +51,10 @@
     "@reconbot/jsdoc-theme": "^1.0.3",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
-    "codecov": "^3.5.0",
-    "eslint": "^6.4.0",
+    "codecov": "^3.6.1",
+    "eslint": "^6.5.1",
     "jsdoc": "^3.6.3",
-    "mocha": "^6.2.0",
+    "mocha": "^6.2.2",
     "nyc": "^14.1.0"
   },
   "nyc": {
