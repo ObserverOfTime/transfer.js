@@ -3,3 +3,5 @@ node_modules/
 docs/index.json
 .nyc_output/
 codecov.yml
+.pnp/
+.pnp.js

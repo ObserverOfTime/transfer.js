@@ -106,4 +106,3 @@
     "yoda": ["warn", "never", {"exceptRange": true}]
   }
 }
-

@@ -86,8 +86,6 @@ The documentation is available [here](https://observeroftime.github.io/transfer.
 - [ ] Add more options to the executable
 - [ ] Use a better argument parser
 - [ ] Allow custom transfer domains
-- [ ] Improve coverage
-- [ ] Add more download tests
 - [ ] Add executable tests
 
 ## Credits

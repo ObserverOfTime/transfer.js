@@ -15,7 +15,7 @@ describe('Testing Transfer', () => {
   let downloadURL;
   const file = 'tests/test.txt';
   const regex = '^https://transfer\\.sh/.+/';
-  const userAgent = `${pkg}-tester/${version}`;
+  const userAgent = `${pkg}/${version} (tests)`;
   const options = {
     headers: {
       'User-Agent': userAgent,
@@ -52,12 +52,6 @@ describe('Testing Transfer', () => {
     }).should.notify(done);
   });
 
-  /** @test {Transfer#download} */
-  it('successful download', () => {
-    const transfer = new Transfer(downloadURL, options);
-    return transfer.download(file).should.be.fulfilled;
-  });
-
   /** @test {Transfer#upload} */
   it('failed upload: no file provided', () => {
     const transfer = new Transfer('', options);
@@ -68,9 +62,34 @@ describe('Testing Transfer', () => {
   /** @test {Transfer#upload} */
   it('failed upload: non-existent file', () => {
     const transfer = new Transfer('non-existent', options);
-    const filePath = path.resolve('non-existent');
     return transfer.upload().should.be
-      .rejectedWith(TransferError, 'File not found: ' + filePath);
+      .rejectedWith(TransferError, `File not found: '${transfer.fileInput}'`);
+  });
+
+  /** @test {Transfer#upload} */
+  it('failed upload: non-readable file', () => {
+    const transfer = new Transfer('/etc/shadow', options);
+    return transfer.upload().should.be
+      .rejectedWith(TransferError, `Cannot read file: '${transfer.fileInput}'`);
+  });
+
+  /** @test {Transfer#download} */
+  it('successful download', () => {
+    const transfer = new Transfer(downloadURL, options);
+    return transfer.download(file).should.be.fulfilled;
+  });
+
+  /** @test {Transfer#download} */
+  it('successful download: null destination', (done) => {
+    const transfer = new Transfer(downloadURL, options);
+    return transfer.download(null).should.be.fulfilled
+      .then(fs.unlinkSync).should.notify(done);
+  });
+
+  /** @test {Transfer#download} */
+  it('failed download: no URL provided', () => {
+    const transfer = new Transfer('', options);
+    return transfer.download(null).should.be
+      .rejectedWith(TransferError, 'Missing file URL');
   });
 });
-
