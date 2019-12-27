@@ -20,7 +20,7 @@
     "cover": "nyc report -r text-lcov | codecov -l --disable=gcov",
     "docs": "nyc report -r html && jsdoc -c .jsdoc.json",
     "lint": "eslint bin/*.js lib/*.js tests/*.js",
-    "test": "nyc -r text-summary mocha -t 25000 tests/test.js --exit"
+    "test": "nyc -r text-summary mocha -t 35000 tests/test.js --exit"
   },
   "keywords": [
     "transfer",
@@ -42,7 +42,7 @@
   "dependencies": {
     "cli-progress": "^3.4.0",
     "clipboardy": "^2.1.0",
-    "got": "^9.6.0",
+    "got": "^10.2.0",
     "mime-types": "^2.1.25",
     "minimist": "^1.2.0",
     "progress-promise": "^0.0.6"
@@ -52,14 +52,14 @@
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "codecov": "^3.6.1",
-    "eslint": "^6.6.0",
+    "eslint": "^6.8.0",
     "jsdoc": "^3.6.3",
     "mocha": "^6.2.2",
-    "nyc": "^14.1.0"
+    "nyc": "^15.0.0"
   },
   "resolutions": {
     "handlebars": "^4.5.3",
-    "https-proxy-agent": "^3.0.1"
+    "https-proxy-agent": "^4.0.0"
   },
   "nyc": {
     "check-coverage": true,
@@ -67,7 +67,9 @@
     "statements": 90,
     "functions": 90,
     "branches": 75,
-    "include": ["lib/*.js"],
+    "include": [
+      "lib/*.js"
+    ],
     "report-dir": "docs/coverage",
     "cache": true
   }
