@@ -40,10 +40,11 @@
     "registry": "https://npm.pkg.github.com/"
   },
   "dependencies": {
-    "cli-progress": "^3.4.0",
-    "clipboardy": "^2.1.0",
+    "cli-progress": "^3.6.0",
+    "clipboardy": "^2.2.0",
     "got": "^10.2.0",
-    "mime-types": "^2.1.25",
+    "handlebars": "^4.7.3",
+    "mime-types": "^2.1.26",
     "minimist": "^1.2.0",
     "progress-promise": "^0.0.6"
   },
@@ -51,15 +52,15 @@
     "@reconbot/jsdoc-theme": "^1.0.3",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
-    "codecov": "^3.6.1",
+    "codecov": "^3.6.5",
     "eslint": "^6.8.0",
     "jsdoc": "^3.6.3",
-    "mocha": "^6.2.2",
+    "mocha": "^7.0.1",
     "nyc": "^15.0.0"
   },
   "resolutions": {
-    "handlebars": "^4.5.3",
-    "https-proxy-agent": "^4.0.0"
+    "handlebars": "^4.7.3",
+    "https-proxy-agent": "^5.0.0"
   },
   "nyc": {
     "check-coverage": true,
