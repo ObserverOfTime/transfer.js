@@ -1,7 +1,7 @@
 # transfer.js
 
 [![Version](https://img.shields.io/github/v/tag/ObserverOfTime/transfer.js?label=Version&logo=npm)](https://github.com/ObserverOfTime/transfer.js/packages)
-[![Build](https://github.com/ObserverOfTime/transfer.js/workflows/Build/badge.svg)](https://github.com/ObserverOfTime/transfer.js/actions)
+[![Tests](https://github.com/ObserverOfTime/transfer.js/workflows/Tests/badge.svg)](https://github.com/ObserverOfTime/transfer.js/actions?query=workflow:Tests)
 [![Coverage](https://img.shields.io/codecov/c/gh/ObserverOfTime/transfer.js?label=Coverage&logo=codecov)](https://codecov.io/gh/ObserverOfTime/transfer.js)
 
 Node.js CLI tool for easy file sharing with [transfer.sh](https://transfer.sh)

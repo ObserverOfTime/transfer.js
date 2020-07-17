@@ -1,24 +1,26 @@
-name: Build package
+name: Tests
 
-on: [push, pull_request]
+on:
+  push:
+    branches: ['*']
+  pull_request:
+    branches: ['*']
 
 jobs:
-  build:
+  tests:
     if: |
       contains(github.event.commits[0].message, '[skip ci]') == false &&
       contains(github.event.commits[0].message, '[ci skip]') == false
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
         with:
           fetch-depth: 1
       - name: Set up NodeJS
         uses: actions/setup-node@v1
         with:
-          node-version: 12
-          registry-url: https://npm.pkg.github.com/
-          scope: "@ObserverOfTime"
+          node-version: 14
       - name: Install package
         run: yarn --frozen-lockfile
       - name: Audit dependencies
@@ -31,8 +33,3 @@ jobs:
         run: yarn cover
         env:
           CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
-      - name: Publish package
-        run: yarn publish
-        if: startsWith(github.ref, 'refs/tags')
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}

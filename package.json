@@ -1,6 +1,6 @@
 {
   "name": "transfer.js",
-  "version": "0.5.4",
+  "version": "0.5.3",
   "description": "Fork of transfer-sh, a CLI tool for easy file sharing with https://transfer.sh",
   "main": "index.js",
   "files": [
@@ -40,11 +40,11 @@
     "registry": "https://npm.pkg.github.com/"
   },
   "dependencies": {
-    "cli-progress": "^3.6.1",
+    "cli-progress": "^3.8.2",
     "clipboardy": "^2.3.0",
     "got": "^10.7.0",
     "handlebars": "^4.7.6",
-    "mime-types": "^2.1.26",
+    "mime-types": "^2.1.27",
     "minimist": "^1.2.5",
     "progress-promise": "^0.0.6"
   },
@@ -52,11 +52,14 @@
     "@reconbot/jsdoc-theme": "^1.0.3",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
-    "codecov": "^3.6.5",
+    "codecov": "^3.7.1",
     "eslint": "^6.8.0",
-    "jsdoc": "^3.6.3",
-    "mocha": "mochajs/mocha#f87825a",
-    "nyc": "^15.0.1"
+    "jsdoc": "^3.6.4",
+    "mocha": "^8.0.1",
+    "nyc": "^15.1.0"
+  },
+  "resolutions": {
+    "lodash": "^4.17.19"
   },
   "nyc": {
     "check-coverage": true,
